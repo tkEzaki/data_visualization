@@ -1,16 +1,17 @@
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-import numpy as np
-import networkx as nx
-from networkx.drawing.nx_pydot import graphviz_layout
-import numpy as np
-import matplotlib.cm as cm
-import matplotlib as mpl
-import ast
-from matplotlib import font_manager
-import matplotlib.patches as patches
-import japanize_matplotlib
+import pandas as pd  # データフレーム操作のためのPandas
+import seaborn as sns  # グラフ作成のためのSeaborn
+import matplotlib.pyplot as plt  # グラフ描画のためのMatplotlib
+import numpy as np  # 数値演算のためのNumPy
+import networkx as nx  # グラフ理論のためのNetworkX
+from networkx.drawing.nx_pydot import graphviz_layout  # グラフのレイアウト指定のため
+import matplotlib.cm as cm  # カラーマップのためのMatplotlib
+import matplotlib as mpl  # Matplotlibの設定
+import ast  # Pythonのリストや辞書の文字列を変換するため
+from matplotlib import font_manager  # フォント管理のためのMatplotlib
+import matplotlib.patches as patches  # 図形描画のためのMatplotlib
+import japanize_matplotlib  # Matplotlibで日本語を表示するためのライブラリ
+
+
 plt.rcParams['font.size'] = 14
 
 
@@ -98,38 +99,36 @@ prefectures_y = np.array([16.851567, 14.612222, 13.49113, 12.056438, 13.506199,
 pref_pos_dict = dict(zip(prefectures_name, zip(prefectures_x, prefectures_y)))
 
 
-# def plot_cluster_map():
-#     data_df = pd.read_csv("matrix.csv", index_col=0)
-#     data_df.index = [prefecture_dictionary[pref] for pref in data_df.index]
-#     data_df.columns = [prefecture_dictionary[pref] for pref in data_df.columns]
-#     data_df = np.log1p(data_df)
-#     sns.clustermap(data_df, cmap="jet", metric='euclidean', method='ward', figsize=(12, 12))
-#     # plt.show()
-#     plt.savefig("1_2_4_clustermap_logistics.png")
-#     print(data_df)
-
 def plot_cluster_map():
+    # CSVファイルからデータを読み込む
     data_df = pd.read_csv("matrix.csv", index_col=0)
+
+    # 都道府県名を英日対応辞書(prefecture_dictionary)を使用して日本語に変換
     data_df.index = [prefecture_dictionary[pref] for pref in data_df.index]
     data_df.columns = [prefecture_dictionary[pref] for pref in data_df.columns]
-    data_df = np.log1p(data_df)
-    g = sns.clustermap(data_df, cmap="jet", metric='euclidean', method='ward', figsize=(12, 12))
 
-    # 軸ラベルをすべて表示
-    plt.setp(g.ax_heatmap.xaxis.get_majorticklabels(), rotation=90)
-    plt.setp(g.ax_heatmap.yaxis.get_majorticklabels(), rotation=0)
-    # Explicitly set ticks to ensure all are shown
+    # データに対数変換（log1p）を適用
+    data_df = np.log1p(data_df)
+
+    # Seabornを使用してクラスターマップを作成し、図を取得
+    g = sns.clustermap(data_df, cmap="jet", metric='euclidean',
+                       method='ward', figsize=(12, 12))
+
+    plt.setp(g.ax_heatmap.xaxis.get_majorticklabels(),
+             rotation=90)  # X軸の軸ラベルを90度回転して表示
+    plt.setp(g.ax_heatmap.yaxis.get_majorticklabels(),
+             rotation=0)  # Y軸の軸ラベルを0度で表示
+
+    # X軸とY軸の目盛りを調整してすべて表示
     g.ax_heatmap.set_xticks(np.arange(len(data_df.columns)) + 0.5)
     g.ax_heatmap.set_yticks(np.arange(len(data_df.index)) + 0.5)
 
+    # X軸とY軸の目盛りに都道府県名を設定
     g.ax_heatmap.set_xticklabels(data_df.columns)
     g.ax_heatmap.set_yticklabels(data_df.index)
 
-    # plt.show()
-    plt.savefig("1_2_4_clustermap_logistics.png", dpi=300)
-    plt.savefig("1_2_4_clustermap_logistics.svg", dpi=300)
-
-    print(data_df)
+    plt.savefig("1_2_4_clustermap_logistics.png", dpi=300)  # 画像を保存
+    plt.show()  # 画像を表示
 
 
 if __name__ == "__main__":

@@ -1,17 +1,16 @@
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-import numpy as np
-import networkx as nx
-from networkx.drawing.nx_pydot import graphviz_layout
-import numpy as np
-import matplotlib.cm as cm
-import matplotlib as mpl
-import ast
-from matplotlib import font_manager
-import matplotlib.patches as patches
-import japanize_matplotlib
-# plt.rcParams['font.family'] = 'MS Gothic'
+import pandas as pd  # データフレーム操作のためのPandas
+import seaborn as sns  # グラフ作成のためのSeaborn
+import matplotlib.pyplot as plt  # グラフ描画のためのMatplotlib
+import numpy as np  # 数値演算のためのNumPy
+import networkx as nx  # グラフ理論のためのNetworkX
+from networkx.drawing.nx_pydot import graphviz_layout  # グラフのレイアウト指定のため
+import matplotlib.cm as cm  # カラーマップのためのMatplotlib
+import matplotlib as mpl  # Matplotlibの設定
+import ast  # Pythonのリストや辞書の文字列を変換するため
+from matplotlib import font_manager  # フォント管理のためのMatplotlib
+import matplotlib.patches as patches  # 図形描画のためのMatplotlib
+import japanize_matplotlib  # Matplotlibで日本語を表示するためのライブラリ
+
 
 
 prefecture_dictionary = {
@@ -99,27 +98,26 @@ pref_pos_dict = dict(zip(prefectures_name, zip(prefectures_x, prefectures_y)))
 
 
 def draw_arc(G, pos, node1, node2, radius):
-    theta1 = np.arctan2(pos[node2][1] - pos[node1][1], pos[node2][0] - pos[node1][0])
-    theta2 = np.arctan2(pos[node1][1] - pos[node2][1], pos[node1][0] - pos[node2][0])
+    theta1 = np.arctan2(pos[node2][1] - pos[node1][1],
+                        pos[node2][0] - pos[node1][0])
+    theta2 = np.arctan2(pos[node1][1] - pos[node2][1],
+                        pos[node1][0] - pos[node2][0])
 
-    start_pos = (pos[node1][0] + radius * np.cos(theta1), pos[node1][1] + radius * np.sin(theta1))
-    end_pos = (pos[node2][0] + radius * np.cos(theta2), pos[node2][1] + radius * np.sin(theta2))
+    start_pos = (pos[node1][0] + radius * np.cos(theta1),
+                 pos[node1][1] + radius * np.sin(theta1))
+    end_pos = (pos[node2][0] + radius * np.cos(theta2),
+               pos[node2][1] + radius * np.sin(theta2))
 
     arc = plt.Arrow(
         start_pos[0], start_pos[1],
         end_pos[0] - start_pos[0], end_pos[1] - start_pos[1],
-        # width=width, color=color,
-        # alpha=0.7,  # lw=0,
-        # length_includes_head=True,
-        # head_width=0.12,
-        # head_length=0.2,
     )
 
     plt.gca().add_patch(arc)
 
 
 def plot_network():
-    # read pkl file of dictionary data
+
     data_df = pd.read_csv("matrix.csv", index_col=0)
 
     # 空の無向グラフを作成
@@ -129,8 +127,6 @@ def plot_network():
     np.fill_diagonal(data, 0)
 
     threshold = np.percentile(data, 95)
-    print(threshold)
-
     prefec_list = list(data_df.index)
     for pref in prefec_list:
         G.add_node(prefecture_dictionary[pref])
@@ -138,32 +134,31 @@ def plot_network():
     # グラフにエッジと重みを追加
     for i in range(len(data_df)):
         for j in range(len(data_df)):
-            G.add_edge(prefecture_dictionary[prefec_list[i]], prefecture_dictionary[prefec_list[j]], weight=data[i, j] * 0.1) if data[i, j] >= threshold else None
+            G.add_edge(prefecture_dictionary[prefec_list[i]], prefecture_dictionary[prefec_list[j]],
+                       weight=data[i, j] * 0.1) if data[i, j] >= threshold else None
 
     # ノードの数に応じて、楕円上に等間隔でノードを配置
     nodes = G.nodes()
-    theta = np.linspace(0 + 0.5 * np.pi, 2 * np.pi + 0.5 * np.pi, len(nodes) + 1)[:-1]
-    # a, b = 1.5, 1  # a, bはそれぞれ楕円の長軸と短軸の長さです
-    a, b = 1, 1.5  # a, bはそれぞれ楕円の長軸と短軸の長さです
-    pos = {node: (a * np.cos(angle), b * np.sin(angle)) for node, angle in zip(nodes, theta)}
+    theta = np.linspace(0 + 0.5 * np.pi, 2 * np.pi +
+                        0.5 * np.pi, len(nodes) + 1)[:-1]
+    a, b = 1, 1.5  # a, bはそれぞれ楕円の長軸と短軸の長さ
+    pos = {node: (a * np.cos(angle), b * np.sin(angle))
+           for node, angle in zip(nodes, theta)}
 
     # エッジの太さのリストを作成
     edge_widths = [G[u][v]['weight'] for u, v in G.edges()]
     min_weight = min(edge_widths)
     max_weight = max(edge_widths)
 
-    print(edge_widths)
-    # # グラフを描画
-    # nx.draw(G, pos, with_labels=True, node_color='lightblue', font_size=10, font_weight='bold', node_size=100, width=edge_widths, edge_color='gray', arrows=True)
-
-    # ax = plt.gca()
+    # 図の作成
     fig, ax = plt.subplots(figsize=(10, 10))
     cmap = cm.get_cmap('jet')
-    print(G.edges)
+
     for edge in G.edges():
         source, target = edge
         rad = 0.5
-        norm_weight = (G.edges[(source, target)]['weight'] - min_weight) / (max_weight - min_weight)
+        norm_weight = (G.edges[(source, target)]['weight'] -
+                       min_weight) / (max_weight - min_weight)
         color = cmap(norm_weight)
         arrowprops = dict(lw=G.edges[(source, target)]['weight'],
                           arrowstyle="simple",
@@ -178,40 +173,24 @@ def plot_network():
                     xytext=pos[source],
                     arrowprops=arrowprops
                     )
-    # ノードを描画
-    # nx.draw_networkx_nodes(G, pos)
-    # nx.draw_networkx_labels(G, pos)
-    # ノードを描画
 
-    nx.draw_networkx_nodes(G, pos, node_color='black', edgecolors='white', alpha=0.5, node_size=500)
-
-    # for node in G.nodes:
-    #     x, y = pos[node]
-    #     ellipse = patches.Ellipse((x, y), width=0.2, height=0.1, fill=True, color="black", alpha=0.5) # widthとheightを調整してください。
-    #     ax.add_patch(ellipse)
-
-    # ラベルを描画
-    # nx.draw_networkx_labels(G, pos, font_size=12, font_color='black')
-    # plt.axis('off')
+    nx.draw_networkx_nodes(G, pos, node_color='black',
+                           edgecolors='white', alpha=0.5, node_size=500)
 
     # ラベルを個別に描画
     for node in G.nodes():
         if len(node) == 2:
-            # nx.draw_networkx_labels(G, pos, labels={node: node}, font_color='white', font_size=10, font_family='MS Gothic')
-            nx.draw_networkx_labels(G, pos, labels={node: node}, font_color='white', font_size=10, font_family="IPAexGothic")
+            nx.draw_networkx_labels(G, pos, labels={
+                                    node: node}, font_color='white', font_size=10, font_family="IPAexGothic")
         else:
-            # nx.draw_networkx_labels(G, pos, labels={node: node}, font_color='white', font_size=7, font_family='MS Gothic')
-            nx.draw_networkx_labels(G, pos, labels={node: node}, font_color='white', font_size=7, font_family="IPAexGothic")
+            nx.draw_networkx_labels(G, pos, labels={
+                                    node: node}, font_color='white', font_size=7, font_family="IPAexGothic")
 
-    plt.axis('off')
-    print(pos)
-    plt.gca().set_aspect('equal', adjustable='datalim')
-    # グラフを表示
-    # plt.show()
-    plt.savefig("1_2_3_network_logistics.png", dpi=300)
-    plt.savefig("1_2_3_network_logistics.svg", dpi=300)
+    plt.axis('off')  # 軸を非表示
+    plt.gca().set_aspect('equal', adjustable='datalim')  # アスペクト比を調整
+    plt.savefig("1_2_3_network_logistics.png", dpi=300)  # 画像として保存
+    plt.show()  # 図を表示
 
 
 if __name__ == "__main__":
-    # plot_cluster_map()
     plot_network()
