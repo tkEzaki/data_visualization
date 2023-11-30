@@ -1,5 +1,5 @@
-from wordcloud import WordCloud
-import matplotlib.pyplot as plt
+from wordcloud import WordCloud  # wordcloudパッケージをインポート
+import matplotlib.pyplot as plt  # グラフ描画のためのMatplotlib
 
 
 # テキストデータ
@@ -8,20 +8,19 @@ text = "Clustering coefficients for correlation networks, Energy landscape analy
 
 # WordCloudオブジェクトを生成
 wordcloud = WordCloud(
-    relative_scaling=1,
-    background_color="white",
-    colormap="jet",
-    font_path='C://Windows//Fonts//ariblk.ttf',
-    width=1000,
-    height=500,
+    relative_scaling=1,  # 文字の大きさを指定
+    background_color="white",  # 背景色を指定
+    colormap="jet",  # カラーマップを指定
+    font_path='C://Windows//Fonts//ariblk.ttf',  # ご自身の環境によって設定して下さい
+    width=1000,  # 横幅を指定
+    height=500,  # 縦幅を指定
     random_state=12  # いい感じになるシードを選んだ
 ).generate(text)
 
 # ワードクラウドを描画
-plt.figure(figsize=(10, 5))
-plt.imshow(wordcloud)
-plt.axis("off")
-plt.tight_layout()
-plt.savefig("2_1_2_wordcloud.png", dpi=300)
-plt.savefig("2_1_2_wordcloud.svg", dpi=300)
-# plt.show()
+plt.figure(figsize=(10, 5))  # 図のサイズを設定
+plt.imshow(wordcloud)  # ワードクラウドを描画
+plt.axis("off")  # 軸を非表示にする
+plt.tight_layout()  # レイアウトを調整
+plt.savefig("2_1_2_wordcloud.png", dpi=300)  # 画像を保存
+plt.show()  # 画像を表示
