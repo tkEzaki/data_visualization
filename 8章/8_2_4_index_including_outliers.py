@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 import japanize_matplotlib
-plt.rcParams['font.size'] = 14
+plt.rcParams['font.size'] = 16
 
 # 各サンプルの設定
 np.random.seed(0)

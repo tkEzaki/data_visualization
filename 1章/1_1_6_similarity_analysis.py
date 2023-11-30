@@ -21,7 +21,6 @@ def generate_heatmap():
     axs[1].imshow(heatmap2, cmap='gray', interpolation='nearest')
     axs[1].axis('off')
     plt.savefig('1_1_6_visual_data.png')
-    plt.savefig('1_1_6_visual_data.svg')
     plt.show()
 
     plt.figure(figsize=(4, 4))
@@ -33,7 +32,6 @@ def generate_heatmap():
     plt.tick_params(axis='both', which='major', labelsize=22)
     plt.tight_layout()
     plt.savefig('1_1_6_scatter.png', dpi=300)
-    plt.savefig('1_1_6_scatter.svg', dpi=300)
     plt.show()
     print(f'Correlation coefficient: {r_value}, {p_value}')
 
@@ -55,7 +53,6 @@ def generate_individual_location():
     plt.xlim([0, 100])
     plt.tick_params(axis='both', which='major', labelsize=18)
     plt.savefig('1_1_6_location_index.png', dpi=300)
-    plt.savefig('1_1_6_location_index.svg', dpi=300)
     plt.show()
 
     plt.figure(figsize=(4, 4))
@@ -69,7 +66,6 @@ def generate_individual_location():
     plt.tick_params(axis='both', which='major', labelsize=20)
     plt.tight_layout()
     plt.savefig('1_1_6_location_index_scatter.png', dpi=300)
-    plt.savefig('1_1_6_location_index_scatter.svg', dpi=300)
     plt.show()
     print(f'Correlation coefficient: {r_value}, {p_value}')
 

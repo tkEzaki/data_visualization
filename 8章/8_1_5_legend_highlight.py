@@ -1,10 +1,9 @@
 import pandas as pd
 import numpy as np
-import random
 import matplotlib.pyplot as plt
 import japanize_matplotlib
 
-plt.rcParams['font.size'] = 14
+plt.rcParams['font.size'] = 15
 
 np.random.seed(0)
 # 月曜日から日曜日までの7日間
@@ -24,19 +23,19 @@ def generate_visitor_count_with_wednesday(day):
     for hour in hours_of_day:
         if day == '水':
             if hour == 12 or hour == 17:
-                visitor_count.append(random.randint(50, 80))
+                visitor_count.append(np.random.randint(50, 80))
             else:
-                visitor_count.append(int(random.randint(20, 50) * 1.4))
+                visitor_count.append(int(np.random.randint(20, 50) * 1.4))
         elif day in ['土', '日']:
             if 11 <= hour <= 17:
-                visitor_count.append(random.randint(70, 100))
+                visitor_count.append(np.random.randint(70, 100))
             else:
-                visitor_count.append(random.randint(30, 60))
+                visitor_count.append(np.random.randint(30, 60))
         else:
             if hour == 12 or hour == 17:
-                visitor_count.append(random.randint(50, 80))
+                visitor_count.append(np.random.randint(50, 80))
             else:
-                visitor_count.append(random.randint(20, 50))
+                visitor_count.append(np.random.randint(20, 50))
     return visitor_count
 
 
@@ -63,5 +62,7 @@ plt.grid(True)
 # 凡例をプロットエリアの外に配置
 # plt.legend(title='曜日', loc='upper right', bbox_to_anchor=(1.135, 1))
 
-plt.savefig('8_1_4_legend_example_without_legend.png', dpi=300)
+plt.savefig('8_1_5_legend_highlight.png', dpi=300)
+plt.savefig('8_1_5_legend_highlight.svg', dpi=300)
+
 plt.show()

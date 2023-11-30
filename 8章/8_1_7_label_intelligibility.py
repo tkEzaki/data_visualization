@@ -1,7 +1,7 @@
 import seaborn as sns
 import matplotlib.pyplot as plt
 import japanize_matplotlib
-plt.rcParams['font.size'] = 14
+plt.rcParams['font.size'] = 16
 
 # SeabornからIrisデータセットを読み込む
 # （注：この環境ではインターネットアクセスが制限されているため、実行できません）
@@ -30,9 +30,10 @@ sns.scatterplot(x="petal_length", y="petal_width", hue="種", data=iris_dataset,
 # axes[1].set_title('Petal Length vs Petal Width (Right)')
 axes[1].set_xlabel('花弁の長さ [cm], $L_p$')
 axes[1].set_ylabel('花弁の幅 [cm], $W_p$')
-
+axes[1].legend(fontsize=14)
 
 # グラフを表示
 plt.tight_layout()
 plt.savefig('8_1_7_label_intelligibility.png', dpi=300)
+plt.savefig('8_1_7_label_intelligibility.svg', dpi=300)
 plt.show()

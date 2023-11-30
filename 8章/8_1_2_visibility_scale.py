@@ -9,10 +9,10 @@ y2 = [11.1, 11.3, 11.4, 11.9, 12.1, 12.8, 14.0, 14.2, 14.7, 15.0, 15.5]
 
 # グラフパターンと保存設定
 patterns = [
-    {'figsize': (5, 3), 'ylim': (10.5, 16.5), 'filename': 'graph1'},
-    {'figsize': (5, 3), 'ylim': (0, 30), 'filename': 'graph2'},
-    {'figsize': (9, 3), 'ylim': (10.5, 16.5), 'filename': 'graph3'},
-    {'figsize': (3, 6), 'ylim': (10.5, 16.5), 'filename': 'graph4'},
+    {'figsize': (5, 3), 'ylim': (10.5, 16.5), 'filename': '1_scale_example'},
+    {'figsize': (5, 3), 'ylim': (0, 30), 'filename': '2_scale_example'},
+    {'figsize': (9, 3), 'ylim': (10.5, 16.5), 'filename': '3_scale_example'},
+    {'figsize': (3, 6), 'ylim': (10.5, 16.5), 'filename': '4_scale_example'},
 ]
 
 for pattern in patterns:
@@ -29,8 +29,8 @@ for pattern in patterns:
     plt.tight_layout()
 
     # PNGとSVGで保存
-    plt.savefig(f"{pattern['filename']}.png")
-    plt.savefig(f"{pattern['filename']}.svg")
+    plt.savefig(f"8_1_2_{pattern['filename']}.png")
+    plt.savefig(f"8_1_2_{pattern['filename']}.svg")
 
     # グラフの表示（オプション）
     # plt.show()

@@ -3,7 +3,9 @@ import japanize_matplotlib
 import pandas as pd
 import numpy as np
 import seaborn as sns
-plt.rcParams['font.size'] = 11
+plt.rcParams['font.size'] = 13
+
+np.random.seed(5)
 
 # 10変数、各時系列の長さはL=20でランダムデータを生成（正の値のみ）
 # 乱数は0から1の範囲で生成されるため、それに50を足して負にならないようにする
@@ -26,7 +28,9 @@ axes[0].bar(range(L), df['A'])
 axes[0].set_xlim(-0.50, 10.5)
 
 plt.tight_layout()
-plt.savefig('heatmap_and_bar_without_values.png', dpi=300)
+plt.savefig('8_1_6_1_heatmap_and_bar_without_values.png', dpi=300)
+plt.savefig('8_1_6_1_heatmap_and_bar_without_values.svg', dpi=300)
+
 plt.show()
 
 # 修正を加えた図を作成
@@ -47,5 +51,7 @@ axes[0].set_xlim(-0.50, 10.5)
 # axes[0].set_ylabel('Value')
 
 plt.tight_layout()
-plt.savefig('heatmap_and_bar_with_values.png', dpi=300)
+plt.savefig('8_1_6_2_heatmap_and_bar_with_values.png', dpi=300)
+plt.savefig('8_1_6_2_heatmap_and_bar_with_values.svg', dpi=300)
+
 plt.show()

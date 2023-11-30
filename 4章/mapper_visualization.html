@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="KeplerMapper">
+  <title>Mapper visualization of 100D clusters | KeplerMapper</title>
+
+  <link rel="icon" type="image/png" href="http://i.imgur.com/axOG6GJ.jpg" />
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono:700,300' rel='stylesheet' type='text/css'>
+  <style>* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: "Roboto Mono", "Helvetica", sans-serif;
+  font-size: 14px;
+}
+
+#logo {
+  width:  85px;
+  height: 85px;
+}
+
+#display {
+  color: #95A5A6;
+  background: #212121;
+}
+
+#header {
+  background: #111111;
+}
+
+#print {
+  color: #000;
+  background: #FFF;
+}
+
+h1 {
+  font-size: 21px;
+  font-weight: 300;
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 18px;
+  padding-bottom: 20px;
+  font-weight: 300;
+}
+
+h3 {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h4 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding-bottom:0px;
+}
+
+
+#meta_content h3 {
+  float: left;
+  padding-right: 8px;
+}
+
+p, #tooltip_content h3, ol, ul, table {
+  padding-bottom: 10px;
+}
+
+ol, ul {
+  padding-left: 20px;
+}
+
+ol b {
+  display: block;
+}
+
+a {
+  color: #16a085;
+  text-decoration: none;
+}
+
+.pane {
+  position: relative;
+}
+
+.pane-left {
+  float: left;
+}
+
+.pane-right {
+  float: right;
+}
+
+a:hover {
+  color: #2ecc71;
+}
+
+.banner {
+  /* height: 35px; */
+  padding: 10px 0px;
+}
+
+
+#print #header {
+  background: #FFF;
+}
+
+
+#canvas {
+  width: 100%;
+}
+
+#svg {
+  position: absolute;
+}
+
+#toolbar {
+  padding-top: 5px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+#display #toolbar {
+}
+
+#display .banner {
+  border-top: 1px solid #000;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.tool_item {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.pane_content {
+  width: 300px;
+  height:100%;
+  padding: 20px;
+  overflow: auto;
+  display: none;
+}
+
+.pane {
+  z-index: 1;
+}
+
+#display .pane_content {
+  background: #191919;
+}
+
+#print .pane_content{
+  background: #FFF;
+}
+
+#meta_content::-webkit-scrollbar, #tooltip_content::-webkit-scrollbar {
+  width: 1em;
+}
+
+#meta_content::-webkit-scrollbar-track, #tooltip_content::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+#meta_content::-webkit-scrollbar-thumb, #tooltip_content::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+.histogram {
+  display: block;
+  height: 100px;
+  padding-top: 50px;
+  clear: both;
+}
+
+#display .histogram {
+  opacity: 0.68;
+}
+
+.bin {
+  width: 10%;
+  float: left;
+}
+
+.bin div {
+  font-size: 10px;
+  display: block;
+  width: 35px;
+  margin-top: -30px;
+  text-align: right;
+  margin-left: -3px;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+}
+
+.histogram:hover {
+  opacity: 1.;
+}
+
+#display .circle {
+  stroke-opacity: 0.18;
+  stroke-width: 7px;
+  stroke: #000;
+}
+
+#print .circle {
+  stroke-opacity: 1;
+  stroke-width: 2px;
+  stroke: #000;
+  stroke-linecap: round;
+}
+
+#print .link {
+  stroke: #000;
+}
+
+#display .link {
+  stroke: rgba(160, 160, 160, 0.5);
+}
+
+table {
+  border-collapse: collapse;
+  display: table;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+td, th {
+  padding: 5px;
+  text-align: left;
+}
+
+#display th {
+  background: #212121
+}
+
+td {
+  border-bottom: 1px solid #111;
+}
+
+.highlight {
+  filter: url(#drop-shadow-pulse);
+}
+
+.control-row {
+  padding: 5px 0px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid #FFFFFF;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  background-color: transparent;
+  font-weight: 300;
+  color: #FFFFFF;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  color: #000000;
+  background-color: #FFFFFF;
+}
+
+.btn:disabled {
+  color: #FFFFFF;
+  opacity: .35;
+}
+
+#print .btn {
+  color: #000;
+  border-color: #000
+}
+
+#print .btn:hover {
+  color: #FFFFFF;
+  background-color: #000000
+}
+
+#print .btn:disabled {}
+
+#toolbar .btn {
+  padding: 0 1.2em;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: .5rem;
+}
+
+#config-file-loader {
+  margin-bottom: .5em;
+}
+
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+
+.wrap {
+  display: flex;
+}
+
+.wrap-header div:last-child {
+  margin-left: auto;
+}
+
+.wrap-end {
+  justify-content: flex-end;
+}
+
+.wrap-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrap-logo .logo {
+  margin: auto;
+}
+
+.wrap-header {
+  /* padding: 5px 10px; */
+  padding: 5px 5px 5px 10px;
+  justify-content: space-between;
+}
+
+#display .wrap-header {
+  box-shadow: 0px 0px 4px #000;
+}
+
+.toolbar-container {
+  margin-left: -10px;
+}
+</style>
+
+</head>
+
+<body id="display">
+
+  <!-- Variables used later -->
+  <script>
+    const graph = {"links": [{"source": 1, "target": 2, "width": 1}, {"source": 3, "target": 4, "width": 1}], "nodes": [{"color": [[0.4921819687278749]], "id": "", "name": "cube0_cluster0", "size": 6, "tooltip": {"cluster_stats": {"above": [], "below": [], "size": 167}, "custom_tooltips": [0, 2, 5, 6, 8, 9, 11, 13, 14, 17, 18, 22, 23, 24, 26, 28, 30, 33, 34, 35, 36, 42, 45, 46, 59, 60, 63, 67, 71, 73, 77, 81, 85, 87, 88, 90, 93, 95, 98, 102, 104, 106, 109, 112, 113, 118, 119, 123, 128, 129, 132, 135, 136, 141, 145, 155, 161, 169, 170, 175, 179, 180, 185, 191, 192, 193, 195, 198, 199, 200, 202, 205, 207, 208, 214, 220, 223, 224, 226, 228, 234, 236, 237, 242, 244, 245, 255, 256, 257, 259, 260, 271, 285, 288, 289, 292, 293, 294, 295, 299, 310, 313, 315, 320, 322, 325, 326, 328, 334, 335, 339, 340, 343, 346, 354, 356, 361, 364, 366, 374, 379, 381, 384, 385, 389, 390, 391, 393, 395, 396, 398, 402, 404, 406, 412, 414, 415, 416, 418, 423, 424, 426, 428, 431, 434, 435, 439, 440, 444, 446, 447, 449, 451, 453, 458, 462, 468, 471, 473, 475, 476, 480, 486, 488, 489, 491, 493], "dist_label": "Member", "histogram": [[{"color": "rgb(70, 18, 100)", "height": 100.0, "perc": 14.4}, {"color": "rgb(68, 51, 125)", "height": 63.0, "perc": 9.0}, {"color": "rgb(58, 80, 138)", "height": 67.0, "perc": 9.6}, {"color": "rgb(46, 107, 141)", "height": 58.0, "perc": 8.4}, {"color": "rgb(36, 131, 141)", "height": 71.0, "perc": 10.2}, {"color": "rgb(33, 155, 136)", "height": 58.0, "perc": 8.4}, {"color": "rgb(51, 178, 121)", "height": 58.0, "perc": 8.4}, {"color": "rgb(94, 199, 96)", "height": 71.0, "perc": 10.2}, {"color": "rgb(155, 215, 59)", "height": 88.0, "perc": 12.6}, {"color": "rgb(220, 226, 37)", "height": 63.0, "perc": 9.0}]], "node_id": "cube0_cluster0", "projection_stats": []}, "type": "circle"}, {"color": [[0.46859917017132857]], "id": "", "name": "cube1_cluster0", "size": 5, "tooltip": {"cluster_stats": {"above": [], "below": [], "size": 142}, "custom_tooltips": [1, 10, 15, 16, 19, 20, 21, 27, 31, 32, 37, 38, 39, 40, 43, 48, 49, 52, 53, 58, 61, 65, 68, 72, 75, 76, 80, 83, 84, 86, 91, 96, 99, 101, 103, 110, 114, 116, 117, 124, 127, 134, 140, 143, 144, 146, 157, 158, 160, 162, 163, 164, 166, 167, 168, 171, 172, 174, 176, 177, 181, 184, 186, 187, 190, 194, 196, 197, 211, 216, 218, 227, 233, 238, 247, 251, 252, 253, 261, 262, 264, 267, 270, 275, 276, 277, 278, 282, 297, 300, 303, 304, 306, 308, 309, 316, 319, 324, 329, 331, 336, 341, 347, 350, 351, 352, 355, 357, 359, 360, 362, 367, 369, 376, 378, 386, 388, 394, 397, 400, 405, 409, 411, 420, 421, 427, 432, 433, 437, 442, 455, 456, 457, 465, 467, 469, 472, 479, 484, 490, 494, 496], "dist_label": "Member", "histogram": [[{"color": "rgb(70, 18, 100)", "height": 77.0, "perc": 12.0}, {"color": "rgb(68, 51, 125)", "height": 73.0, "perc": 11.3}, {"color": "rgb(58, 80, 138)", "height": 59.0, "perc": 9.2}, {"color": "rgb(46, 107, 141)", "height": 100.0, "perc": 15.5}, {"color": "rgb(36, 131, 141)", "height": 32.0, "perc": 4.9}, {"color": "rgb(33, 155, 136)", "height": 64.0, "perc": 9.9}, {"color": "rgb(51, 178, 121)", "height": 64.0, "perc": 9.9}, {"color": "rgb(94, 199, 96)", "height": 73.0, "perc": 11.3}, {"color": "rgb(155, 215, 59)", "height": 50.0, "perc": 7.7}, {"color": "rgb(220, 226, 37)", "height": 55.0, "perc": 8.5}]], "node_id": "cube1_cluster0", "projection_stats": []}, "type": "circle"}, {"color": [[0.4947173258080787]], "id": "", "name": "cube2_cluster0", "size": 5, "tooltip": {"cluster_stats": {"above": [], "below": [], "size": 147}, "custom_tooltips": [1, 3, 10, 12, 15, 20, 21, 27, 31, 32, 37, 39, 40, 43, 48, 49, 52, 53, 56, 58, 61, 62, 65, 68, 72, 75, 80, 83, 91, 96, 99, 101, 103, 110, 114, 116, 117, 120, 127, 131, 134, 138, 140, 143, 146, 156, 157, 158, 160, 162, 163, 164, 171, 172, 174, 176, 177, 181, 184, 186, 190, 194, 196, 197, 201, 204, 216, 218, 227, 233, 238, 247, 251, 253, 261, 262, 264, 266, 267, 269, 270, 275, 278, 297, 300, 303, 304, 306, 307, 308, 309, 316, 319, 324, 327, 329, 331, 336, 347, 350, 351, 352, 353, 355, 357, 359, 360, 362, 367, 369, 373, 376, 378, 386, 388, 394, 397, 399, 400, 407, 409, 411, 417, 420, 421, 422, 427, 432, 433, 437, 438, 441, 442, 443, 454, 455, 456, 457, 465, 467, 472, 474, 479, 484, 490, 494, 496], "dist_label": "Member", "histogram": [[{"color": "rgb(70, 18, 100)", "height": 84.0, "perc": 10.9}, {"color": "rgb(68, 51, 125)", "height": 79.0, "perc": 10.2}, {"color": "rgb(58, 80, 138)", "height": 74.0, "perc": 9.5}, {"color": "rgb(46, 107, 141)", "height": 100.0, "perc": 12.9}, {"color": "rgb(36, 131, 141)", "height": 42.0, "perc": 5.4}, {"color": "rgb(33, 155, 136)", "height": 63.0, "perc": 8.2}, {"color": "rgb(51, 178, 121)", "height": 79.0, "perc": 10.2}, {"color": "rgb(94, 199, 96)", "height": 100.0, "perc": 12.9}, {"color": "rgb(155, 215, 59)", "height": 84.0, "perc": 10.9}, {"color": "rgb(220, 226, 37)", "height": 68.0, "perc": 8.8}]], "node_id": "cube2_cluster0", "projection_stats": []}, "type": "circle"}, {"color": [[0.5270541082164327]], "id": "", "name": "cube3_cluster0", "size": 6, "tooltip": {"cluster_stats": {"above": [], "below": [], "size": 166}, "custom_tooltips": [4, 7, 25, 29, 41, 44, 47, 50, 51, 54, 55, 57, 64, 66, 69, 70, 74, 78, 79, 82, 89, 92, 94, 97, 100, 105, 107, 108, 111, 115, 121, 122, 125, 126, 130, 133, 137, 139, 142, 147, 148, 149, 150, 151, 152, 153, 154, 159, 165, 173, 178, 182, 183, 188, 189, 203, 206, 209, 210, 212, 213, 215, 217, 219, 221, 222, 225, 229, 230, 231, 232, 235, 239, 240, 241, 243, 246, 248, 249, 250, 254, 258, 263, 265, 268, 272, 273, 274, 279, 280, 281, 283, 284, 286, 287, 290, 291, 296, 298, 301, 302, 305, 311, 312, 314, 317, 318, 321, 323, 330, 332, 333, 337, 338, 342, 344, 345, 348, 349, 358, 363, 365, 368, 370, 371, 372, 375, 377, 380, 382, 383, 387, 392, 401, 403, 408, 410, 413, 419, 425, 429, 430, 436, 445, 448, 450, 452, 459, 460, 461, 463, 464, 466, 470, 477, 478, 481, 482, 483, 485, 487, 492, 495, 497, 498, 499], "dist_label": "Member", "histogram": [[{"color": "rgb(70, 18, 100)", "height": 29.0, "perc": 4.2}, {"color": "rgb(68, 51, 125)", "height": 71.0, "perc": 10.2}, {"color": "rgb(58, 80, 138)", "height": 75.0, "perc": 10.8}, {"color": "rgb(46, 107, 141)", "height": 54.0, "perc": 7.8}, {"color": "rgb(36, 131, 141)", "height": 100.0, "perc": 14.5}, {"color": "rgb(33, 155, 136)", "height": 83.0, "perc": 12.0}, {"color": "rgb(51, 178, 121)", "height": 83.0, "perc": 12.0}, {"color": "rgb(94, 199, 96)", "height": 58.0, "perc": 8.4}, {"color": "rgb(155, 215, 59)", "height": 50.0, "perc": 7.2}, {"color": "rgb(220, 226, 37)", "height": 88.0, "perc": 12.7}]], "node_id": "cube3_cluster0", "projection_stats": []}, "type": "circle"}, {"color": [[0.3719438877755511]], "id": "", "name": "cube4_cluster0", "size": 2, "tooltip": {"cluster_stats": {"above": [], "below": [], "size": 5}, "custom_tooltips": [47, 69, 105, 337, 370], "dist_label": "Member", "histogram": [[{"color": "rgb(70, 18, 100)", "height": 100.0, "perc": 20.0}, {"color": "rgb(68, 51, 125)", "height": 100.0, "perc": 20.0}, {"color": "rgb(58, 80, 138)", "height": 100.0, "perc": 20.0}, {"color": "rgb(46, 107, 141)", "height": 0.0, "perc": 0.0}, {"color": "rgb(36, 131, 141)", "height": 0.0, "perc": 0.0}, {"color": "rgb(33, 155, 136)", "height": 0.0, "perc": 0.0}, {"color": "rgb(51, 178, 121)", "height": 100.0, "perc": 20.0}, {"color": "rgb(94, 199, 96)", "height": 100.0, "perc": 20.0}, {"color": "rgb(155, 215, 59)", "height": 0.0, "perc": 0.0}, {"color": "rgb(220, 226, 37)", "height": 0.0, "perc": 0.0}]], "node_id": "cube4_cluster0", "projection_stats": []}, "type": "circle"}]};
+    const colorscale = [[0.0, "rgb(68, 1, 84)"], [0.1, "rgb(72, 35, 116)"], [0.2, "rgb(64, 67, 135)"], [0.3, "rgb(52, 94, 141)"], [0.4, "rgb(41, 120, 142)"], [0.5, "rgb(32, 144, 140)"], [0.6, "rgb(34, 167, 132)"], [0.7, "rgb(68, 190, 112)"], [0.8, "rgb(121, 209, 81)"], [0.9, "rgb(189, 222, 38)"], [1.0, "rgb(253, 231, 36)"]];
+    const summary = {"color_function_name": ["Row number"], "custom_meta": {"clusterer": "DBSCAN(eps=100)", "n_cubes": 10, "perc_overlap": 0.2, "projection": "custom", "scaler": "None"}, "n_edges": 2, "n_nodes": 5, "n_total": 627, "n_unique": 500, "node_color_function": ["mean"]};
+    const summary_histogram = [[[{"color": "rgb(70, 18, 100)", "height": 0.0, "perc": 0.0}, {"color": "rgb(68, 51, 125)", "height": 0.0, "perc": 0.0}, {"color": "rgb(58, 80, 138)", "height": 0.0, "perc": 0.0}, {"color": "rgb(46, 107, 141)", "height": 33.0, "perc": 20.0}, {"color": "rgb(36, 131, 141)", "height": 100.0, "perc": 60.0}, {"color": "rgb(33, 155, 136)", "height": 33.0, "perc": 20.0}, {"color": "rgb(51, 178, 121)", "height": 0.0, "perc": 0.0}, {"color": "rgb(94, 199, 96)", "height": 0.0, "perc": 0.0}, {"color": "rgb(155, 215, 59)", "height": 0.0, "perc": 0.0}, {"color": "rgb(220, 226, 37)", "height": 0.0, "perc": 0.0}]]];
+  </script>
+
+  <div id="header">
+    <div class="wrap wrap-header">
+
+      <div class="">
+
+        <!-- toolbar -->
+        <div class="toolbar-container">
+        
+<div id="toolbar" class='wrap'>
+    <div id="tooltip_control" class="tool_item">
+        <h3>
+        <a href="#"><small id="tooltip_tag">[+]</small></a>
+        Cluster Details
+        </h3>
+    </div>
+
+    <div id="meta_control" class="tool_item">
+        <h3>
+        <a href="#"><small id="meta_tag">[+]</small></a>
+        Mapper Summary
+        </h3>
+    </div>
+
+    <div id="help_control" class="tool_item">
+        <h3>
+        <a href="#"><small id="helptip_tag">[+]</small></a>
+        Help
+        </h3>
+    </div>
+
+    
+
+    
+
+    
+
+</div>
+        </div>
+        <!-- /toolbar -->
+
+        <div class='banner'>
+          <noscript><b>Requires JavaScript (d3.js) for visualizations</b></noscript>
+          <h1> Mapper visualization of 100D clusters </h1>
+        </div>
+
+      </div>
+
+      <div class="wrap-logo">
+        <img id="logo" class='logo' src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAIAAAC3ytZVAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAACK1SURBVHhevdxXrJVV0wdw9NhfsfdeUVREEJHeFJCmgCg2jEaRmCCWxAtDYrwy8cJojAZRmgUJRZpUAUFBREGQpoK99977+9t71tnss5v7oDgX+13PembNmvnPf2at58j3bdfgP5eaWvlfVn755Zd99tnnxx9//PXXX41/+umn33777Y8//vjzzz/Tgv9Q/gs4tttuu1133XXffffdaaed9t9//++++26XXXb56quvBH/44YefdtppHufNm/fzzz9vv/32DRs23GuvvSBC/9tvv/36668/+OADA2Alc9tStiEcUBDS7rvvfsQRR4jqk08+kXmBpddZmpx55pmDBw9GjfHjxy9fvjy9qJUdd9zxkEMOadSoEXT23HPP995777XXXoNmer0NZJvAAQJpF8wPP/zw0UcfQeGvv/5K7/KkSZMm559/ft++fT/88ENVc+GFF4IsvSsS4B555JGNGzf+/fff8eX111/fFnypSf/7L8lxxx3XrFkzQLz55pucVhESm97VlYj/oIMOQhA1EtE+88wzok0aRYJiUGAZ6U499VR19+WXX1bQ3wr5d+AIVnPxs88+W7t27aefflrZS8F37dq1RYsWxsccc4zwVq9efckllwjvhRdeCJ0K8vnnnwMFOqeccspJJ52EU+VAr6/8UzjUvwwfeuihKmLjxo1VFrYyufjii7VSiOgse++9t5o6+OCDW7ZsuW7dOqEmvYoCAgTUUIBywAEHYKLzKL3bWvlHcOyxxx6KmR/vvvtu9R1OUxw0aNBRRx31xRdfNG3a1CmLU8j16quvnnzyyQwiSIUmUiDOY60HXyDr/MKv9GKrZOvh0CZw/p133qlXq99hhx0GDBjQpk0bXda5e+KJJ/rVaHfeeWe8gAWioZtzF3fSmioEKMrz9NNPZ/+bb77ZappsDRy77bYbtr/99ttSUd+NNU6nCVpppSBQKfoo2us+fqWX8eOPP94dBEeqaZOWwHTIkCFDhw4Fh8djjz0W3fJP9Oql3nDYT9k3b968X79+jjpSPTtUuFUap3uXsu/QoYPJ/fbbT99xNqOJruGEBpC7mX68Zs2aWFgsoETPc84559Zbb73lllt69+6tBpUMI7fddhtrMNWPknbVsn363+oE8LZR88gpFfPnz3/66aefeOKJyy67zLECqaRXSjRd8btTiQQcMo/YoFH5IhG8yyiMQllzHTZsWI8ePeIxJxYedthhAwcOHDly5LRp08aOHXvuueceeOCB2PTcc885pOgoPTYZ7NixI2RjYZVSD3bAgvVXXnnFb69evdavXw8CLRBAcg6Rnj174q043TJJWlYrXbp0USlqRKiaDnSEARog4pdLBHoDyLzcUvCW5vvvv689xUHubL7mmmtuv/129HQGWUKZJlFZgJYkjWPy5MkQYY1ZaqCpvqKrhUOzwENYGHOuW7duDvzp06fbTwwcEpi8tW7d+qKLLoKLahIM4OSTZw5R83qktSbfeuutuEopEz1V++S0+L1y0XIfY1BIEuDcYdlFXkVcfvnl7du3N8OT8Couu9a6gxiwb/mMGTMifsY//vjjPn36ALTKi0lVcGh4wtiwYUM8yuell176/fff88zpCBfexysCHYEppfPOO69///6dOnVq27atNDo1vMIaMLksXHnllWoblVhGbBBs2rTp6KOP9ovzmYxnxQw43NCCSuybjI1CMMJdFrjsKxnLlXDuVGIfFnJmi2oQ+Xs4xAyOl156KT1nTxZlKULba6W2kV6JigBCqPmlieQaZLwVs5CQRckIgGXIAshB88YbbyCgLzRmKesmYcEjfnlri5jJeFArHp999lnUsxEj8FUsDmmMSxrZ2xos0NblKNhUQf6m0+A/xhZfnFGDE5ym4C1OFjiak82bNzv23K94zFcz3JJS1zDntEnuahaaDk1cQHhNMd9vmn6dGvGYL25r8IVXw4YN2eGPcwrd0utagbiPAIik5/JSCQ47oeiLL76YnmsF58VjECHJ+bhx4/ITEiIk8atkjMUFBwdegAaTlY+EI46jxOlLGaXjniowxnPgxkAnUgJyEJOEca1h6dKlbujmuWovPQXvuJeU8sTVOaomPZeRsnDw44wzztAaIvJ80fBsaXs3MX7gs66urabXebJ48WL9X2MTPDWVBQsN3yq0shzcggETDip7NPH2hBNOwKBkIiuccXixFqyJ31WrVrVr144bOGULsOIFQIvZEaJhQZByei4lZeHgn/5fnHMCDk6IRGwS4lcXAH8Bj5YtW8ZjkXgbKCCIeSgbqGflZhWG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">
+      </div>
+    </div>
+
+  </div>
+
+    <div id="canvas" class='canvas'>
+      <!-- Graph will go in here -->
+      <svg id='svg'>
+        <defs>
+          <filter id="drop-shadow-glow" filterUnits="userSpaceOnUse" width="250%" height="250%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur-out"/>
+            <feColorMatrix in="blur-out" type="hueRotate" values="0" result="color-out"/>
+            <feOffset in="color-out" dx="0" dy="0" result="the-shadow"/>
+            <feComponentTransfer type="linear" slope="0.2" result="shadow-opacity"/>
+            <feBlend in="SourceGraphic" in2="the-shadow" mode="normal"/>
+          </filter>
+          <filter id="drop-shadow-pulse" filterUnits="userSpaceOnUse" width="250%" height="250%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur-out">
+              <animate attributeName="stdDeviation" from="0" to="100" dur="1.5s" repeatCount="indefinite" />
+            </feGaussianBlur>
+            <feColorMatrix in="blur-out" type="hueRotate" values="0" result="color-out"/>
+            <feOffset in="color-out" dx="0" dy="0" result="the-shadow"/>
+            <feComponentTransfer type="linear" slope="0.2" result="shadow-opacity"/>
+            <feBlend in="SourceGraphic" in2="the-shadow" mode="normal"/>
+          </filter>
+        </defs>
+      </svg>
+
+    <!-- Panes for each of the tips -->
+    <div id="tooltip" class='pane pane-left'>
+      <div id="tooltip_content" class="pane_content">
+        <div id='tooltip_content_no_focus_node'>
+          Hover over a node to see attributes about it.
+        </div>
+        <div id='tooltip_content_focus_node' style='display:none'>
+        <div>
+  <div class='actions'>
+    <h3>Actions</h3>
+    <p>
+      <button class='btn center-on-node'>Center viewport on node</button>
+    </p>
+  </div>
+
+  <div class='details'>
+    <h2>Cluster Details <span style="font-size:0.7em">(node id: <span class='node_id'></span>)</span></h2>
+
+    <!-- histogram -->
+    <div class='histogram-wrapper'>
+      <hr><br/>
+
+      <h3><span class='distribution_label'></span> Distribution</h3>
+
+      <div class="histogram"></div>
+
+      <br><br>
+    </div>
+    <!-- /histogram -->
+
+    <!-- Projection Statistics -->
+    <div class='projection_stats' style='display:none'>
+
+      <hr><br/>
+
+      <h3>Projection Statistics</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Lens</th>
+            <th style="width:50px;"><small>Mean</small></th>
+            <th style="width:50px;"><small>Max</small></th>
+            <th style="width:50px;"><small>Min</small></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Cluster Statistics -->
+    <div class='cluster_stats'>
+        <hr><br/>
+
+        <h3>Cluster Statistics</h3>
+        <div class='above-wrapper'>
+            <h3>Above Average</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th style="width:50px;"><small>Mean</small></th>
+                  <th style="width:50px;"><small>STD</small></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+        </div>
+
+        <div class='below-wrapper'>
+            <h3>Below Average</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th style="width:50px;"><small>Mean</small></th>
+                  <th style="width:50px;"><small>STD</small></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+        </div>
+
+        <h3>Size</h3>
+        <p class='cluster-size'></p>
+    </div>
+
+    <!-- Membership information -->
+    <div class='membership-information'>
+      <hr> <br/>
+
+      <h3>Members</h3>
+      <div class='list-of-members'></div>
+
+      <br><br>
+      <hr><br>
+    </div>
+    <!-- /membership information -->
+  </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="helptip" class='pane pane-right'>
+      <div id="helptip_content" class="pane_content">
+        <!-- Help pane.
+    TODO: Add more information here.  -->
+
+<ul>
+<li>Click on a node to lock focus on that node. The node with the current focus will pulse. Click off of a node to release the lock.</li>
+<li>Dragging a node will fix its position on the screen. Double-click a fixed-position node to unfreeze it.</li>
+</ul>
+
+<table>
+    <tr>
+        <th>Key</th>
+        <th><small>Action</small></th>
+    </tr>
+
+    <tr>
+        <td>s</td>
+        <td><small>Nodes glow :D</small></td>
+    </tr>
+
+    <tr>
+        <td>c</td>
+        <td><small>remove glow</small></td>
+    </tr>
+
+    <tr>
+        <td>p</td>
+        <td><small>Print mode - white backgrounds</small></td>
+    </tr>
+
+    <tr>
+        <td>d</td>
+        <td><small>Display mode - black backgrounds</small></td>
+    </tr>
+
+    <tr>
+        <td>z</td>
+        <td><small>Turn off gravity</small></td>
+    </tr>
+
+    <tr>
+        <td>m</td>
+        <td><small>Spacious layout</small></td>
+    </tr>
+
+    <tr>
+        <td>e</td>
+        <td><small>Tight layout</small></td>
+    </tr>
+
+    <tr>
+        <td>f</td>
+        <td><small>Freeze layout</small></td>
+    </tr>
+
+    <tr>
+        <td>x</td>
+        <td><small>Unfreeze all nodes</small></td>
+    </tr>
+
+</table>
+
+<div class="control-wrapper">
+  <div class="control-row">
+    <button class='btn' type="button" id="download-config" name="download-config">Save config</button>
+  </div>
+
+  <div class="control-row">
+    <label for="config-file-loader">Load config file</label>
+    <input type="file" id="config-file-loader" name="config-file-loader" accept="application/json">
+    <button class='btn' id='load-config' disabled>Load</button>
+  </div>
+</div>
+      </div>
+    </div>
+
+    <div id="meta" class='pane pane-right'>
+      <div id="meta_content" class="pane_content">
+        <h2>Mapper Summary</h2>
+
+<hr><br>
+
+
+    
+        <h3>projection </h3> <p> custom</p>
+    
+        <h3>n_cubes </h3> <p> 10</p>
+    
+        <h3>perc_overlap </h3> <p> 0.2</p>
+    
+        <h3>clusterer </h3> <p> DBSCAN(eps=100)</p>
+    
+        <h3>scaler </h3> <p> None</p>
+    
+
+
+<h3>Nodes</h3><p> 5 </p>
+
+<h3>Edges</h3><p> 2 </p>
+
+<h3>Total Samples</h3><p> 627</p>
+
+<h3>Unique Samples</h3><p> 500</p>
+
+<h3>Color function</h3><p>
+  Row number
+</p>
+
+<h3>Node Color Function</h3><p> mean</p>
+
+
+<!-- histogram -->
+<hr><br/>
+
+<h3>Node Distribution</h3>
+
+<div class="histogram"></div>
+
+<br><br>
+<!-- /histogram -->
+
+<hr><br>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"></script>
+
+  <script>// Height and width settings
+var page_height = window.innerHeight - 5;
+var header_height = document.getElementById('header').offsetHeight;
+var canvas_height = page_height - header_height;
+document.getElementById("canvas").style.height = canvas_height + "px";
+var width = document.getElementById("canvas").offsetWidth;
+var height = document.getElementById("canvas").offsetHeight;
+var w = width;
+var h = height;
+var padding = 40;
+
+var focus_node_id = null;
+var focus_node = null;
+var text_center = false;
+var outline = false;
+
+// Size for zooming
+var size = d3.scalePow().exponent(1)
+           .domain([1,100])
+           .range([8,24]);
+
+// Variety of variable inits
+var default_node_color = "#ccc";
+var default_node_color = "rgba(160,160,160, 0.5)";
+var default_link_color = "rgba(160,160,160, 0.5)";
+var nominal_base_node_size = 8;
+var nominal_text_size = 15;
+var max_text_size = 24;
+var nominal_stroke = 1.0;
+var max_stroke = 4.5;
+var max_base_node_size = 36;
+var min_zoom = 0.1;
+var max_zoom = 7;
+var zoom;
+var svg, g;
+var simulation;
+var link, node;
+var drag;
+var dragging = false;
+var circle;
+var text;
+var focus_via_click = false;
+var nodes = [];
+var links = [];
+
+var tocolor = "fill";
+var towhite = "stroke";
+if (outline) {
+  tocolor = "stroke";
+  towhite = "fill";
+}
+
+/**
+ * Side panes
+ */
+
+// Show/Hide Functionality
+function toggle_pane(content, content_id, tag) {
+  var active = content.active ? false : true;
+
+  if (active) {
+    content_id.style("display", "block");
+    tag.node().textContent = "[-]";
+  } else {
+    content_id.style("display", "none");
+    tag.node().textContent = "[+]";
+  }
+
+  // TODO: This is probably not the best way to find the correct height.
+  var h = canvas_height - content.offsetTop - padding;
+  content_id.style("height", h + "px")
+
+  content.active = active;
+}
+
+d3.select("#tooltip_control").on("click", function(e) {
+  toggle_pane(tooltip_content,
+              d3.select("#tooltip_content"),
+              d3.select("#tooltip_tag"))
+
+});
+
+d3.select("#meta_control").on("click", function(e) {
+  toggle_pane(meta_content,
+              d3.select("#meta_content"),
+              d3.select("#meta_tag"))
+
+});
+
+d3.select("#help_control").on("click", function(e) {
+  toggle_pane(helptip_content,
+              d3.select("#helptip_content"),
+              d3.select("#helptip_tag"))
+});
+
+d3.select('#select-color-function').on('input', function(e){
+  color_function_index = parseInt(e.target.value);
+  update_color_functions()
+})
+d3.select('#select-node-color-function').on('input', function(e){
+  node_color_function_index = parseInt(e.target.value);
+  update_color_functions()
+})
+
+/**
+ *
+ * Set up color scale
+ *
+ *
+ */
+// var colorscale defined in base.html
+var domain = colorscale.map((x)=>x[0])
+var palette = colorscale.map((x)=>x[1])
+
+var color = d3.scaleLinear()
+  .domain(domain)
+  .range(palette);
+
+/*
+* one-time setups, like SVG and force init
+*/
+function init() {
+
+  zoom = d3.zoom()
+    .scaleExtent([min_zoom, max_zoom])
+    .on('zoom', zoomed)
+
+  // We draw the graph in SVG
+  svg = d3.select("#canvas svg")
+          .attr("width", width)
+          .attr("height", height)
+          .style("cursor","move")
+          .call(zoom)
+          .on('dblclick.zoom', null); // prevent default zoom-in on dblclick
+
+  svg.on('click.focus', function(e){
+    set_focus_via_click(null);
+  });
+
+  g = svg.append("g")
+
+  link = g.selectAll(".link")
+  node = g.selectAll(".node")
+  text = g.selectAll(".text")
+
+  simulation = d3.forceSimulation()
+    .force('charge', d3.forceManyBody().strength(-1200))
+    .force('center', d3.forceCenter(width / 2, height / 2))
+    .force('link', d3.forceLink().distance(5))
+    .force('x', d3.forceX()) // not sure what this does...
+    .force('y', d3.forceY())
+    .on('tick', ticked)
+
+  drag = d3.drag()
+    .on("start", function(e, d){
+      svg.style('cursor','grabbing');
+      if (!e.active) {
+        simulation.alphaTarget(0.3).restart()
+      }
+      d.fx = d.x
+      d.fy = d.y
+      dragging = true;
+    })
+    .on('drag', function(e, d){
+      d.fx = e.x
+      d.fy = e.y
+    })
+    .on('end', function(e, d){
+      if (!e.active) {
+        simulation.alphaTarget(0)
+      }
+      dragging = false;
+    });
+
+  resize();
+  d3.select(window).on("resize", resize);
+
+  d3.select(window).on("mouseup.focus", function(e){
+    if (focus_node == null) {
+      set_cursor('move');
+    } else {
+      set_cursor('pointer');
+    }
+  });
+}
+
+function set_histogram(selection, data){
+  selection.selectAll('.bin')
+    .data(data)
+    .join(
+      enter => enter.append('div')
+        .attr('class', 'bin')
+        .call(enter => enter.append('div')
+          .text(d => d.perc + '%'))
+      ,
+      update => update
+        .call(update => update.select('div')
+          .text(d => d.perc + '%'))
+    )
+    .style('height', (d) => (d.height || 1) + 'px')
+    .style('background', (d) => d.color);
+}
+
+
+
+var color_function_index = 0;
+var node_color_function_index = 0;
+
+function reset_color_functions(){
+  color_function_index = 0;
+  node_color_function_index = 0;
+  update_color_functions()
+}
+
+function update_color_functions(){
+  // update_meta_content_histogram
+  set_histogram(d3.select('#meta_content .histogram'), summary_histogram[node_color_function_index][color_function_index])
+
+  // update node colors
+  node.style(tocolor, function(d) {
+    return color(d.color[node_color_function_index][color_function_index]);
+  })
+
+  // update focus node display, if focus_node
+  if (focus_node != null){
+    set_focus_node_histogram(focus_node)
+  }
+}
+
+function update_meta_content_histogram(){
+
+}
+
+function draw_circle_size(d) {
+  return (d3.symbol()
+    .size(function(d) {
+      if (!d.size_modifier) {
+          d.size_modifier = 1;
+      }
+      return d.size * 50 * d.size_modifier;
+    })
+    .type(d3.symbolCircle))(d)
+}
+
+function start() {
+
+  /*
+  * Force-related things
+  *
+  */
+  // shallow copy to enable restarting,
+  // because otherwise, starting the force simulation mutates the links (replaces indeces with refs)
+  nodes = graph.nodes.map(n => Object.assign({}, n));
+  links = graph.links.map(l => Object.assign({}, l));
+
+  // draw links first so that they appear behind nodes
+  link = link
+    .data(links)
+    .join("line")
+      .attr("class", "link")
+      .style("stroke-width", function(d) { return d.w * nominal_stroke; })
+      .style("stroke-width", function(d) { return d.w * nominal_stroke; });
+
+  node = node
+    .data(nodes, d => d.name)
+    .join(enter => enter.append("g")
+      .attr("class", "node")
+      .attr("id", function(d){ return "node-" + d.name })
+      // append circles...
+      .append("path")
+        .attr("d", draw_circle_size )
+        .attr("class", "circle")
+        .on("mouseover.focus", node_mouseover)
+        .on("mouseout.focus", node_mouseout)
+        .on('mousedown.focus', node_mousedown)
+        .on("dblclick.freeze", (e, d) => unfreeze_node(d) )
+        .on('click.zoom', node_click)
+        .on('center_viewport', center_on_node)
+        .call(drag));
+
+  simulation.nodes(nodes);
+  simulation.force('link').links(links);
+  simulation.alpha(1).restart()
+
+  reset_color_functions()
+}
+
+init();
+start();
+
+function restart() {
+  // nodes = []
+  // links = []
+  // node.remove()
+  // link.remove()
+  focus_via_click = false;
+  start()
+}
+
+function zoomed({transform}){
+  g.attr('transform', transform)
+}
+
+function ticked() {
+  node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; })
+
+  link.attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
+}
+
+/*
+* Resizing window and redraws
+*/
+function resize() {
+  var width = document.getElementById("canvas").offsetWidth;
+  var height = document.getElementById("canvas").offsetHeight;
+
+  svg.attr("width", width)
+     .attr("height", height);
+
+  simulation.force('center', d3.forceCenter(width / 2, height / 2));
+  simulation.alpha(.3).restart();
+
+  w = width;
+  h = height;
+}
+
+function set_focus_via_click(d) {
+  focus_via_click = (d != null ? true : false);
+  set_focus_node(d);
+}
+
+function do_above_below_stats(wrapper, data) {
+  let column_order = ['feature', 'mean', 'std'];
+  wrapper.select('tbody')
+    .selectAll('tr')
+    .data(data, d => d)
+    .join(enter => {
+        let tr = enter.append('tr')
+        tr.append('td')
+        tr.append('td').style('font-size', 'smaller')
+        tr.append('td').style('font-size', 'smaller').attr('class', 'std')
+        return tr
+        })
+    .selectAll('td')
+    .text( (d, i) => d[column_order[i]] )
+  if (data.length > 0) {
+    wrapper.style('display', 'block')
+  } else {
+    wrapper.style('display', 'none')
+  }
+}
+
+function do_projection_stats(wrapper, data) {
+  let column_order = ['name', 'mean', 'min', 'max'];
+  wrapper.select('tbody').selectAll('tr')
+    .data(data, d => d)
+    .join(enter => {
+      let tr = enter.append('tr')
+      tr.append('td')
+      tr.append('td').style('font-size', 'smaller')
+      tr.append('td').style('font-size', 'smaller')
+      tr.append('td').style('font-size', 'smaller')
+      return tr;
+    })
+    .selectAll('td')
+    .text( (d, i) => d[column_order[i]] );
+  if (data.length > 0) {
+    wrapper.style('display', 'block')
+  } else {
+    wrapper.style('display', 'none')
+  }
+}
+
+let focus_node_tooltip_select = d3.select('#tooltip_content_focus_node');
+let tooltip_content_no_focus_node = d3.select('#tooltip_content_no_focus_node')
+let projection_stats_select = focus_node_tooltip_select.select('.projection_stats');
+let cluster_stats_select = focus_node_tooltip_select.select('.cluster_stats');
+let above_wrapper = cluster_stats_select.select('.above-wrapper');
+let below_wrapper = cluster_stats_select.select('.below-wrapper');
+let list_of_members = focus_node_tooltip_select.select('.membership-information .list-of-members');
+
+function set_focus_node(d){
+  if (d == null) {
+    focus_node = null;
+    set_cursor('move');
+    tooltip_content_no_focus_node.style('display', 'block');
+    focus_node_tooltip_select.style('display', 'none')
+    exit_highlight();
+  } else if (focus_node == null || d.name != focus_node.name) {
+    exit_highlight(focus_node);
+    focus_node = d;
+    set_highlight(focus_node);
+    set_cursor('pointer');
+
+    tooltip_content_no_focus_node.style('display', 'none');
+
+    focus_node_tooltip_select.select('button.center-on-node').node().dataset.nodeId = d.tooltip.node_id;
+    focus_node_tooltip_select.select('.node_id').text(d.tooltip.node_id)
+    focus_node_tooltip_select.select('.distribution_label').text(d.tooltip.dist_label)
+
+    // histogram
+    set_focus_node_histogram(d)
+
+    // projection statistics
+    let projection_stats = d.tooltip.projection_stats;
+    do_projection_stats(projection_stats_select, projection_stats)
+
+    // cluster statistics
+    let cluster_stats = d.tooltip.cluster_stats;
+    if (cluster_stats) {
+
+      do_above_below_stats(above_wrapper, cluster_stats.above);
+
+      do_above_below_stats(below_wrapper, cluster_stats.below);
+
+      cluster_stats_select.select('.cluster-size').text(cluster_stats.size)
+
+      cluster_stats_select.style('display', 'block')
+    } else {
+      cluster_stats_select.style('display', 'none')
+    }
+
+    // membership information
+    list_of_members.selectAll('span')
+      .data(d.tooltip.custom_tooltips, d => d)
+      .join('span')
+        .html(d => d)
+        .style('display', 'inline-block')
+        .style('padding', '0 3px')
+
+    focus_node_tooltip_select.style('display', 'block');
+
+    set_focus_node_histogram(d)
+  }
+  // else, it's already the focus node, so do nothing...
+}
+
+d3.select('#tooltip .center-on-node').on('click', function(e){
+  // d3.select('#node-' + focus_node.name + ' .circle').dispatch('center_viewport')
+  d3.select('#node-' + e.target.dataset.nodeId + ' .circle').dispatch('center_viewport')
+})
+
+function set_focus_node_histogram(d){
+  set_histogram(d3.select('#tooltip_content .histogram'), d.tooltip.histogram[color_function_index])
+}
+
+function set_highlight(node) {
+  let node_id = node.name;
+  d3.select('#node-' + node_id + ' .circle').classed('highlight', true);
+  d3.select('#node-' + node_id).classed('highlight', true);
+}
+
+function exit_highlight(node) {
+  let node_id = false;
+  if (node) {
+    node_id = node.name
+  }
+  if (!node_id) {
+     d3.selectAll('.node .circle').classed('highlight', false);
+     d3.selectAll('.node').classed('highlight', false);
+  } else {
+     d3.select('#node-' + node_id + ' .circle').classed('highlight', false);
+     d3.select('#node-' + node_id).classed('highlight', false);
+  }
+
+  do_projection_stats(projection_stats_select, [])
+  do_above_below_stats(above_wrapper, [])
+  do_above_below_stats(below_wrapper, [])
+}
+
+function set_cursor(state) {
+  if (!dragging) {
+    svg.style('cursor', state);
+  }
+}
+
+function node_is_fixed(d){
+  return d.hasOwnProperty('fx') || d.hasOwnProperty('fy')
+}
+
+function node_click(e, d) {
+  e.stopPropagation()
+  // to prevent the svg click.focus listener from unsetting the focus node...
+}
+
+function center_on_node(e, d) {
+  svg.transition().duration(250).call(zoom.translateTo, d.x, d.y);
+}
+
+function node_mouseover(e, d) {
+  d.was_fixed = d.hasOwnProperty('fx') || d.hasOwnProperty('fy')
+  if (!d.was_fixed){
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+
+  if (e.buttons == 0){
+    set_cursor('pointer');
+    if (!focus_via_click) {
+      set_focus_node(d);
+    }
+  }
+}
+
+function node_mouseout(e, d) {
+  if (!d.was_fixed){
+      delete d.fx
+      delete d.fy
+  }
+  if (e.buttons == 0){
+    set_cursor('move');
+    if (!focus_via_click) {
+        set_focus_node(null);
+    }
+  }
+}
+
+function node_mousedown(e, d) {
+  e.stopPropagation();
+  if (focus_node.name != d.name) {
+      //switch click focus
+      set_focus_via_click(d);
+  } else if (!focus_via_click) {
+      //d already selected but not via click; set click true
+      focus_via_click = true;
+  }
+}
+
+
+
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function unfreeze_node(d){
+  delete d.fy
+  delete d.fx
+  return d
+}
+
+function freeze_node(d){
+  d.fx = d.x;
+  d.fy = d.y;
+  return d
+}
+
+// search functionality
+d3.select('#searchbar')
+  .on('submit', function(event){
+      /*
+      * Searchbar functionality
+      *
+      * Permits AND, OR, and EXACT functionality
+      *
+      */
+      event.preventDefault();
+      // always running this will clear search results on a submit with an empty query
+      node.datum(d => { d.size_modifier = 1; return d });
+      node.style('filter', null)
+
+      node.datum(d => {
+        let to_lower = tooltip => String(tooltip).toLowerCase();
+        d.tooltip.custom_tooltips_lowercase = d.tooltip.custom_tooltips.map(to_lower)
+        return d
+      });
+
+      let search_query = d3.select(this).select('input').property('value').toLowerCase();
+      if (search_query) {
+          let search_mode = d3.select(this).select('input[name="search_mode"]:checked').property('value');
+
+          let node_ratio_fn = (d, i) => {
+            matches = d.tooltip.custom_tooltips_lowercase.map(map_fn)
+            let how_many = matches.filter(x=>x).length;
+
+            // Future optional feature -- size relative to ratio _within-node_
+            let out_of = d.tooltip.cluster_stats.size;
+            let ratio = how_many / out_of;
+
+            // Node sizes will be overall number of items in the node
+            // number of matching
+            d.size_modifier = how_many;
+          }
+
+          let map_fn;
+          let node_each_fn;
+          switch (search_mode) {
+            case 'and':
+              search_query = search_query.split(' ');
+              map_fn = tooltip => {
+                return search_query.every(query_word => { return tooltip.includes( query_word ) })
+              }
+              node.each(node_ratio_fn)
+              break;
+            case 'or':
+              search_query = search_query.split(' ');
+              map_fn = tooltip => {
+                return search_query.some(query_word => { return tooltip.includes( query_word ) })
+              }
+              node.each(node_ratio_fn)
+              break;
+            case 'exact':
+              node.filter((d,i) => {
+                  matches = d.tooltip.custom_tooltips_lowercase.map(tooltip => tooltip == search_query)
+                  return matches.some(e => e);
+              })
+              .style("filter", "url(#drop-shadow-glow)");
+              break;
+            default:
+              console.error(`search mode ${search_mode} unknown`);
+              return;
+          }
+
+      }
+      node.attr("d", draw_circle_size )
+
+  })
+
+// Key press events
+let searchbar = d3.select('#searchbar input');
+
+d3.select(window).on("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return; // Do nothing if the event was already processed
+  }
+
+  if (searchbar.size() && searchbar.node().matches(':focus')){
+      return; // let them use the search bar.
+  }
+
+  if (!event.ctrlKey && !event.altKey && !event.metaKey) {
+    switch (event.key) {
+      case "f": // freeze all
+        node.datum(freeze_node);
+        break;
+      case "x": // unfreeze all
+        node.datum(unfreeze_node);
+        simulation.alphaTarget(.3).restart()
+        break
+      case "s":
+        // Glow
+        node.style("filter", "url(#drop-shadow-glow)");
+        break;
+      case "c":
+        // Remove glow
+        node.style("filter", null);
+        break;
+      case "p":
+        // Turn to print mode, white backgrounds
+        d3.select("body").attr('id', null).attr('id', "print")
+        break;
+      case "d":
+        // "Display" mode (dark background)
+        d3.select("body").attr('id', null).attr('id', "display")
+        break;
+      case "z":
+        // turn off gravity (??)
+        simulation
+          .force('charge', d3.forceManyBody().strength(0))
+          .alphaTarget(.3)
+          .restart()
+        break
+      case "m":
+        // spacious layout
+        simulation
+          .force('charge', d3.forceManyBody().strength(-1200))
+          .alphaTarget(.3)
+          .restart()
+        break
+      case "e":
+        // tight layout
+        simulation
+          .force('charge', d3.forceManyBody().strength(-60))
+          .alphaTarget(.3)
+          .restart()
+        break
+      default:
+        return; // Quit when this doesn't handle the key event.
+    }
+  event.preventDefault();
+  }
+  // Cancel the default action to avoid it being handled twice
+}, true);
+
+
+
+/*
+* Save and load config
+*
+*/
+
+// save config
+document.getElementById('download-config').addEventListener('click', function(e){
+  let config = {}
+  node.data().forEach(node => {
+      let config_node = {}
+
+      if ( node.hasOwnProperty('fx') && node.hasOwnProperty('fy') ) {
+        config_node['fx'] = config_node['x'] = node['fx']
+        config_node['fy'] = config_node['y'] = node['fy']
+      } else {
+        config_node['x'] = node['x']
+        config_node['y'] = node['y']
+      }
+      config[node['name']] = config_node
+    })
+
+  //JSON.stringify(config,undefined,2)
+
+  // https://stackoverflow.com/a/45594892
+  var fileName = 'kmapper-config.json';
+
+  // Create a blob of the data. Blob is native JS api
+  var fileToSave = new Blob([JSON.stringify(config)], {
+      type: 'application/json',
+      name: fileName
+  });
+
+  // function from FileSaver.js
+  saveAs(fileToSave, fileName);
+})
+
+// load config
+var config_file_loader = document.getElementById('config-file-loader');
+
+config_file_loader.addEventListener('change', function(){
+  document.getElementById('load-config').disabled = ( config_file_loader.files.length === 0 )
+})
+
+document.getElementById('load-config').addEventListener('click', function(){
+  const config_file = config_file_loader.files[0];
+  const fr = new FileReader();
+  fr.onload = function(e) {
+    var config = JSON.parse(e.target.result);
+    load_config(config);
+  }
+  fr.readAsText(config_file)
+})
+function load_config(config){
+  node = node.datum(function(d, i){
+    let load_node_config = config[d['name']]
+    d = Object.assign(d, load_node_config);
+    if ( d.hasOwnProperty('fx') && !load_node_config.hasOwnProperty('fx') ) {
+      delete d['fx']
+    }
+    if ( d.hasOwnProperty('fy') && !load_node_config.hasOwnProperty('fy') ) {
+      delete d['fy']
+    }
+    return d;
+  })
+  simulation.restart()
+}
+</script>
+</body>
+
+</html>

@@ -10,7 +10,7 @@ y1 = np.cos(4 * (x - 0.25))
 y2 = np.cos(3 * (x - 0.25)) + 0.5
 
 # 図の生成
-fig, ax = plt.subplots(figsize=(8,8))
+fig, ax = plt.subplots(figsize=(8, 8))
 
 # ラインプロットの描画
 ax.plot(x, y1, label='Signal 1', color='blue')
@@ -38,11 +38,12 @@ ax.set_xticks([0, 1, 2, 3, 4])
 ax.legend()
 
 # 図の表示
-plt.savefig('9_1_6_name_of_components.png', bbox_inches='tight')
+plt.savefig('9_1_6_name_of_components.png', bbox_inches='tight', dpi=300)
+plt.savefig('9_1_6_name_of_components.svg', bbox_inches='tight')
+
 plt.show()
 
-ax.plot(x, y1, label='Signal 1', color='blue')
-ax.bar(x, y2, label="Signal 2", color='red')
-ax.scatter(scatter_x, scatter_y1, color='blue')
-ax.viori
-
+# ax.plot(x, y1, label='Signal 1', color='blue')
+# ax.bar(x, y2, label="Signal 2", color='red')
+# ax.scatter(scatter_x, scatter_y1, color='blue')
+# ax.viori

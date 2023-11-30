@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import japanize_matplotlib
 
 
-plt.rcParams['font.size'] = 14
+plt.rcParams['font.size'] = 16
 
 # ファイルを読み込む
 file_path = 'WHO-COVID-19-global-data.csv'  # data downloaded from https://covid19.who.int/data
@@ -31,10 +31,13 @@ plt.legend()
 plt.grid(True)
 plt.ticklabel_format(style='plain', axis='y')
 plt.gca().get_yaxis().set_major_formatter(plt.matplotlib.ticker.StrMethodFormatter('{x:,.0f}'))  # 縦軸の目盛にカンマを入れる
+plt.xticks(rotation=30, ha='right')
+plt.ylabel('新規感染者数')
+
 
 plt.tight_layout()
-plt.savefig('8_1_3_normal_axis_plot.png', dpi=300)
-plt.savefig('8_1_3_normal_axis_plot.svg', dpi=300)
+plt.savefig('8_1_3_1_normal_axis_plot.png', dpi=300)
+plt.savefig('8_1_3_1_normal_axis_plot.svg', dpi=300)
 plt.close()
 
 # 対数縦軸
@@ -48,9 +51,11 @@ plt.yscale('log')
 plt.legend()
 plt.grid(True)
 plt.gca().get_yaxis().set_major_formatter(plt.matplotlib.ticker.StrMethodFormatter('{x:,.0f}'))  # 縦軸の目盛にカンマを入れる
+plt.xticks(rotation=30, ha='right')
+plt.ylabel('新規感染者数')
 
 plt.tight_layout()
-plt.savefig('8_1_3_log_axis_plot.png', dpi=300)
-plt.savefig('8_1_3_log_axis_plot.svg', dpi=300)
+plt.savefig('8_1_3_2_log_axis_plot.png', dpi=300)
+plt.savefig('8_1_3_2_log_axis_plot.svg', dpi=300)
 
 plt.close()

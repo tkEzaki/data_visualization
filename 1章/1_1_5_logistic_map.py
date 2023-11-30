@@ -1,13 +1,12 @@
-import matplotlib.pyplot as plt
-import numpy as np
-import seaborn as sns
-import japanize_matplotlib
+import matplotlib.pyplot as plt  # matplotlib.pyplotをpltとしてインポート
+import numpy as np  # numpyをnpとしてインポート
+import seaborn as sns  # seabornをsnsとしてインポート
+import japanize_matplotlib  # matplotlibで日本語を使用するためのライブラリ
 
-# plt.rcParams["font.family"] = "Yu Gothic"
-plt.rcParams["font.size"] = 16
+plt.rcParams["font.size"] = 16  # グラフのフォントサイズを設定
 
-# Given data
-t = np.arange(0, 101, 1)
+# データの定義
+t = np.arange(0, 101, 1)  # 時間軸（0から100まで）
 x_t = [
     0.2, 0.64, 0.9216, 0.28901376, 0.821939226, 0.585420539, 0.970813326, 0.113339247, 0.401973849, 0.961563495,
     0.14783656, 0.503923646, 0.99993842, 0.000246305, 0.000984976, 0.003936025, 0.015682131, 0.061744808, 0.231729548, 0.712123859,
@@ -21,25 +20,22 @@ x_t = [
     0.869680775, 0.4533445, 0.991293057, 0.034524528, 0.13333034, 0.462213442, 0.994288704, 0.022714708, 0.088795, 0.323641792, 0.87559113
 ]
 
-# Create the plot with subplots
-fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+# サブプロットを含むグラフの作成
+fig, axs = plt.subplots(1, 2, figsize=(10, 4))  # サブプロットのレイアウト設定
 
-# Time Series Plot using seaborn
-sns.lineplot(x=t, y=x_t, marker='o', ax=axs[0], color="g")
-# axs[0].set_title("Time Series Data")
-axs[0].set_xlabel("Time [$t$]")
-axs[0].set_ylabel("$x(t)$")
-axs[0].grid(True)
+# 時系列プロットの作成（seabornを使用）
+sns.lineplot(x=t, y=x_t, marker='o', ax=axs[0], color="g")  # 時系列グラフの描画
+axs[0].set_xlabel("Time [$t$]")  # x軸のラベル
+axs[0].set_ylabel("$x(t)$")  # y軸のラベル
+axs[0].grid(True)  # グリッドを表示
 
-# Lag Plot (Scatter Plot with one time step lag) using seaborn
-sns.scatterplot(x=x_t[:-1], y=x_t[1:], ax=axs[1], color="g")
-# axs[1].set_title("Lag Plot (1 time step)")
-axs[1].set_xlabel("$x(t)$")
-axs[1].set_ylabel("$x(t+1)$")
-axs[1].grid(True)
+# ラグプロット（1ステップタイムラグの散布図）の作成（seabornを使用）
+sns.scatterplot(x=x_t[:-1], y=x_t[1:], ax=axs[1], color="g")  # ラグプロットの描画
+axs[1].set_xlabel("$x(t)$")  # x軸のラベル
+axs[1].set_ylabel("$x(t+1)$")  # y軸のラベル
+axs[1].grid(True)  # グリッドを表示
 
-# Show the plots
-plt.tight_layout()
-plt.savefig("1_1_5_logistic_map.png", dpi=300)
-plt.savefig("1_1_5_logistic_map.svg", dpi=300)
-plt.show()
+# グラフの表示
+plt.tight_layout()  # レイアウトの調整
+plt.savefig("1_1_5_logistic_map.png", dpi=300)  # グラフをファイルに保存
+plt.show()  # グラフの表示
