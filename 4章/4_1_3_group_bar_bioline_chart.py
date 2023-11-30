@@ -2,7 +2,7 @@ import seaborn as sns  # グラフ作成のためのSeaborn
 import matplotlib.pyplot as plt  # グラフ描画のためのMatplotlib
 import pandas as pd  # データフレーム操作のためのPandas
 from sklearn.datasets import load_wine  # ワインデータセット
-from scipy.stats import zscore  # z-score normalization
+from scipy.stats import zscore  # Zスコア正規化のための関数
 import japanize_matplotlib  # Matplotlibで日本語を使用可能にする
 
 plt.rcParams["font.size"] = 15  # プロットのフォントサイズを15に設定

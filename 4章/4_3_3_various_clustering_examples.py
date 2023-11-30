@@ -1,46 +1,48 @@
-import time
-import warnings
-from itertools import cycle, islice
+"""
+scikit-learn "Comparing different clustering algorithms on toy datasets"
+https://scikit-learn.org/stable/auto_examples/cluster/plot_cluster_comparison.html
+のコードを参考に著者作成。
+"""
 
-import matplotlib.pyplot as plt
-import japanize_matplotlib
-import numpy as np
+import time  # 時間計測のためのライブラリ
+import warnings  # 警告を非表示にするためのライブラリ
+from itertools import cycle, islice  # イテレータを生成するためのライブラリ
+import matplotlib.pyplot as plt  # グラフ描画のためのMatplotlib
+import japanize_matplotlib  # Matplotlibで日本語を使用可能にする
+import numpy as np  # 数値演算のためのNumPy
+from sklearn import cluster, datasets, mixture  # クラスタリングのためのライブラリ
+from sklearn.neighbors import kneighbors_graph  # k近傍グラフを作成するためのライブラリ
+from sklearn.preprocessing import StandardScaler  # データの正規化のためのライブラリ
 
-from sklearn import cluster, datasets, mixture
-from sklearn.neighbors import kneighbors_graph
-from sklearn.preprocessing import StandardScaler
+np.random.seed(0)  # 再現性のため
+plt.rcParams['font.size'] = 10  # プロットのフォントサイズを10に設定
 
-np.random.seed(0)
-plt.rcParams['font.size'] = 10
-# ============
-# Generate datasets. We choose the size big enough to see the scalability
-# of the algorithms, but not too big to avoid too long running times
-# ============
-n_samples = 500
-noisy_circles = datasets.make_circles(n_samples=n_samples, factor=0.5, noise=0.05)
-noisy_moons = datasets.make_moons(n_samples=n_samples, noise=0.05)
-blobs = datasets.make_blobs(n_samples=n_samples, random_state=8)
-no_structure = np.random.rand(n_samples, 2), None
+n_samples = 500  # サンプルサイズ
 
-# Anisotropicly distributed data
+noisy_circles = datasets.make_circles(
+    n_samples=n_samples, factor=0.5, noise=0.05)  # 円形のクラスタ
+noisy_moons = datasets.make_moons(n_samples=n_samples, noise=0.05)  # 月型のクラスタ
+blobs = datasets.make_blobs(n_samples=n_samples, random_state=8)  # 正規分布に従うクラスタ
+no_structure = np.random.rand(n_samples, 2), None  # 構造のないデータ
+
+# 異方性のあるデータ
 random_state = 170
 X, y = datasets.make_blobs(n_samples=n_samples, random_state=random_state)
 transformation = [[0.6, -0.6], [-0.4, 0.8]]
 X_aniso = np.dot(X, transformation)
 aniso = (X_aniso, y)
 
-# blobs with varied variances
+# 3つの正規分布に従うデータ
 varied = datasets.make_blobs(
     n_samples=n_samples, cluster_std=[1.0, 2.5, 0.5], random_state=random_state
 )
 
-# ============
-# Set up cluster parameters
-# ============
-plt.figure(figsize=(10, 12))
+
+plt.figure(figsize=(10, 12))  # サブプロットのサイズを設定
 plt.subplots_adjust(
     left=0.02, right=0.98, bottom=0.001, top=0.95, wspace=0.05, hspace=0.01
-)
+)  # サブプロット間の余白を設定
+
 
 plot_num = 1
 
@@ -59,16 +61,20 @@ default_base = {
     "hdbscan_min_samples": 3,
 }
 
-datasets = [
-    (noisy_circles, {"damping": 0.77, "preference": -240, "quantile": 0.2, "n_clusters": 2, "min_samples": 7, "xi": 0.08}),
-    (noisy_moons, {"damping": 0.75, "preference": -220, "n_clusters": 2, "min_samples": 7, "xi": 0.1}),
-    (varied, {"eps": 0.18, "n_neighbors": 2, "min_samples": 7, "xi": 0.01, "min_cluster_size": 0.2}),
-    (aniso, {"eps": 0.15, "n_neighbors": 2, "min_samples": 7, "xi": 0.1, "min_cluster_size": 0.2}),
+data_sets = [
+    (noisy_circles, {"damping": 0.77, "preference": -240,
+     "quantile": 0.2, "n_clusters": 2, "min_samples": 7, "xi": 0.08}),
+    (noisy_moons, {"damping": 0.75, "preference": -220,
+     "n_clusters": 2, "min_samples": 7, "xi": 0.1}),
+    (varied, {"eps": 0.18, "n_neighbors": 2,
+     "min_samples": 7, "xi": 0.01, "min_cluster_size": 0.2}),
+    (aniso, {"eps": 0.15, "n_neighbors": 2,
+     "min_samples": 7, "xi": 0.1, "min_cluster_size": 0.2}),
     (blobs, {"min_samples": 7, "xi": 0.1, "min_cluster_size": 0.2}),
     (no_structure, {}),
 ]
 
-for i_dataset, (dataset, algo_params) in enumerate(datasets):
+for i_dataset, (dataset, algo_params) in enumerate(data_sets):
     params = default_base.copy()
     params.update(algo_params)
 
@@ -95,8 +101,10 @@ for i_dataset, (dataset, algo_params) in enumerate(datasets):
         min_cluster_size=params["hdbscan_min_cluster_size"],
         allow_single_cluster=params["allow_single_cluster"],
     )
-    optics = cluster.OPTICS(min_samples=params["min_samples"], xi=params["xi"], min_cluster_size=params["min_cluster_size"])
-    affinity_propagation = cluster.AffinityPropagation(damping=params["damping"], preference=params["preference"])
+    optics = cluster.OPTICS(
+        min_samples=params["min_samples"], xi=params["xi"], min_cluster_size=params["min_cluster_size"])
+    affinity_propagation = cluster.AffinityPropagation(
+        damping=params["damping"], preference=params["preference"])
     average_linkage = cluster.AgglomerativeClustering(
         linkage="average", affinity="cityblock",
         n_clusters=params["n_clusters"], connectivity=connectivity)
@@ -143,12 +151,11 @@ for i_dataset, (dataset, algo_params) in enumerate(datasets):
         else:
             y_pred = algorithm.predict(X)
 
-        # plt.subplot(len(clustering_algorithms), len(datasets), plot_num)  # この行を変更
-        new_plot_num = i_dataset + i_algo * (len(datasets)) + 1
+        new_plot_num = i_dataset + i_algo * (len(data_sets)) + 1
         print(new_plot_num)
-        plt.subplot(len(clustering_algorithms), len(datasets), new_plot_num)  # この行を変更
-        # if i_algo == 0:
-        #     plt.title("Dataset " + str(i_dataset + 1), size=18)
+        plt.subplot(len(clustering_algorithms), len(
+            data_sets), new_plot_num)  # この行を変更
+
         if i_dataset == 0:
             plt.ylabel(name, rotation=90, size=14)
 
@@ -168,8 +175,6 @@ for i_dataset, (dataset, algo_params) in enumerate(datasets):
                  horizontalalignment="right")
         plot_num += 1
 
-plt.tight_layout()
-plt.savefig('4_3_3_various_clustering_examples.png', dpi=300)
-plt.savefig('4_3_3_various_clustering_examples.svg', dpi=300)
-
-plt.show()
+plt.tight_layout()  # レイアウトの調整
+plt.savefig('4_3_3_various_clustering_examples.png', dpi=300)  # 画像を保存
+plt.show()  # 画像を画面に表示
