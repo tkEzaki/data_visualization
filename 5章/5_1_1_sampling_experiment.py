@@ -13,16 +13,19 @@ np.random.seed(42)
 sample_size = 20
 
 # 図の準備
-fig, axes = plt.subplots(1, 2, figsize=(10, 5), gridspec_kw={'width_ratios': [1, 1]})
+fig, axes = plt.subplots(1, 2, figsize=(
+    10, 5), gridspec_kw={'width_ratios': [1, 1]})
 
 # 理論分布と基準線の描画位置のオフセット
 offset = 1
 
 # 正規分布からのサンプリング
 normal_sample = np.random.normal(size=sample_size)
-sns.boxplot(y=normal_sample, ax=axes[0], color='white', showfliers=False) # 外れ値非表示
+sns.boxplot(y=normal_sample, ax=axes[0],
+            color='white', showfliers=False)  # 外れ値非表示
 sns.swarmplot(y=normal_sample, ax=axes[0], color='magenta')
-axes[0].scatter([0], [np.mean(normal_sample)], marker='x', color='black', s=100, zorder=3) # 平均値のバツマーク
+axes[0].scatter([0], [np.mean(normal_sample)], marker='x',
+                color='black', s=100, zorder=3)  # 平均値のバツマーク
 # axes[0].set_title('正規分布のサンプリング')
 
 # 正規分布の理論分布
@@ -33,9 +36,11 @@ axes[0].axvline(offset, color='gray', linestyle='-')  # 基準線
 
 # 対数正規分布からのサンプリング
 lognormal_sample = np.random.lognormal(size=sample_size)
-sns.boxplot(y=lognormal_sample, ax=axes[1], color='white', showfliers=False) # 外れ値非表示
+sns.boxplot(y=lognormal_sample, ax=axes[1],
+            color='white', showfliers=False)  # 外れ値非表示
 sns.swarmplot(y=lognormal_sample, ax=axes[1], color='cyan')
-axes[1].scatter([0], [np.mean(lognormal_sample)], marker='x', color='black', s=100, zorder=3) # 平均値のバツマーク
+axes[1].scatter([0], [np.mean(lognormal_sample)], marker='x',
+                color='black', s=100, zorder=3)  # 平均値のバツマーク
 # axes[1].set_title('対数正規分布のサンプリング')
 
 # 対数正規分布の理論分布
