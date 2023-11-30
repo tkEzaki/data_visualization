@@ -1,21 +1,20 @@
-import seaborn as sns
-import matplotlib.pyplot as plt
-import japanize_matplotlib
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
-import matplotlib.cm as cm
+import seaborn as sns  # グラフ作成のためのSeaborn
+import matplotlib.pyplot as plt  # グラフ描画のためのMatplotlib
+import japanize_matplotlib  # Matplotlibで日本語を使用可能にする
+from sklearn.model_selection import train_test_split  # データの分割
+from sklearn.linear_model import LinearRegression  # 線形回帰
+from sklearn.metrics import mean_squared_error  # RMSEの計算
+import matplotlib.cm as cm  # カラーマップのためのMatplotlib
 
-plt.rcParams["font.size"] = 14
+plt.rcParams["font.size"] = 14  # フォントサイズの設定
 
-# データの読み込み
-penguins = sns.load_dataset("penguins")
+# データの準備
+penguins = sns.load_dataset("penguins")  # データセットの読み込み
+species_list = penguins['species'].unique()  # データを種類ごとに分割
 
-# データを種類ごとに分割
-species_list = penguins['species'].unique()
 
-# 図の初期化
-plt.figure(figsize=(6, 6))  # 図の大きさを正方形に変更
+# 図の描画
+plt.figure(figsize=(6, 6))  # 図のサイズを指定
 
 # 'tab10'カラーマップの取得
 cmap = cm.get_cmap('tab10')
@@ -28,11 +27,13 @@ for idx, species in enumerate(species_list):
     penguins_species.dropna(inplace=True)
 
     # 特徴量とターゲットを定義
-    X = penguins_species[['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm']]
+    X = penguins_species[['bill_length_mm',
+                          'bill_depth_mm', 'flipper_length_mm']]
     y = penguins_species['body_mass_g']
 
     # データの分割
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42)
 
     # モデルの作成と学習
     model = LinearRegression()
@@ -51,18 +52,10 @@ for idx, species in enumerate(species_list):
 # x=y line
 plt.plot([3000, 6000], [3000, 6000], color='black')
 
-# 描画範囲を限定
-# plt.xlim(2500, 6500)
-# plt.ylim(2500, 6500)
 
-plt.xlabel('実際の体重 [g]', fontsize=18)
-plt.ylabel('モデルによる予測 [g]', fontsize=18)
-# plt.title('Scatter plot of True vs Predicted values for all species')
-plt.grid(True)
-# plt.legend()
-# plt.axis('equal')
-plt.tight_layout()
-plt.savefig('3_3_3_prediction_scatter.png', dpi=300)
-plt.savefig('3_3_3_prediction_scatter.svg', dpi=300)
-
-plt.show()
+plt.xlabel('実際の体重 [g]', fontsize=18)  # x軸ラベル
+plt.ylabel('モデルによる予測 [g]', fontsize=18)  # y軸ラベル
+plt.grid(True)  # グリッド線を表示
+plt.tight_layout()  # レイアウトの設定
+plt.savefig('3_3_3_prediction_scatter.png', dpi=300)  # 画像として保存
+plt.show()  # グラフの表示
