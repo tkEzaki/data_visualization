@@ -1,9 +1,9 @@
-import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
-import japanize_matplotlib
-import numpy as np
-import pandas as pd
-from japanmap import picture
+import matplotlib.pyplot as plt  # Matplotlibのプロット機能を利用するためのライブラリをインポート
+import japanize_matplotlib  # Matplotlibで日本語をサポートするためのライブラリをインポート
+import numpy as np  # 数値計算のためのライブラリをインポート
+import pandas as pd  # データ操作のためのライブラリをインポート
+from japanmap import picture  # 日本の地図データを扱うためのライブラリをインポート
+
 
 plt.rcParams["font.size"] = 14
 

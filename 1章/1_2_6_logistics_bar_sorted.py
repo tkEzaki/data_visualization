@@ -1,36 +1,35 @@
-import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
-import japanize_matplotlib
-import numpy as np
-import pandas as pd
+import matplotlib.pyplot as plt  # Matplotlibのプロット機能を利用するためのライブラリをインポート
+import japanize_matplotlib  # Matplotlibで日本語をサポートするためのライブラリをインポート
+import numpy as np  # 数値計算のためのライブラリをインポート
+import pandas as pd  # データ操作のためのライブラリをインポート
 
 plt.rcParams["font.size"] = 14
 
-
+# 棒グラフを描画する関数
 def draw_bar_graph(prefectures, shipment):
-    plt.figure(figsize=(12, 4))
-    plt.bar(prefectures, shipment, width=0.5)
-    plt.xticks(rotation=90)
-    plt.xlim(-0.5, 46.5)
-    plt.tight_layout()
-    plt.savefig("1_2_6_logistics_bar.png", dpi=300)
-    plt.savefig("1_2_6_logistics_bar.svg", dpi=300)
-    plt.show()
+    plt.figure(figsize=(12, 4))  # 図の設定
+    plt.bar(prefectures, shipment, width=0.5)  # 棒グラフを描画
+    plt.xticks(rotation=90)  # X軸のラベルを回転して表示
+    plt.xlim(-0.5, 46.5)  # X軸の範囲を設定
+    plt.tight_layout()  # レイアウトを調整
+    plt.savefig("1_2_6_logistics_bar.png", dpi=300)  # 画像を保存
+    plt.show()  # グラフを表示
 
 
 def draw_sorted_bar_graph(prefectures, shipment):
+    # 出荷量を降順にソートするためのインデックスを生成
     sorted_index = sorted(range(len(shipment)), key=lambda k: shipment[k], reverse=True)
+    # インデックスを使って都道府県と出荷量をソート
     sorted_prefecture = [prefectures[i] for i in sorted_index]
     sorted_shipment = [shipment[i] for i in sorted_index]
 
-    plt.figure(figsize=(12, 4))
-    plt.bar(sorted_prefecture, sorted_shipment, width=0.5)
-    plt.xticks(rotation=90)
-    plt.xlim(-0.5, 46.5)
-    plt.tight_layout()
-    plt.savefig("1_2_6_logistics_bar_sorted.png", dpi=300)
-    plt.savefig("1_2_6_logistics_bar_sorted.svg", dpi=300)
-    plt.show()
+    plt.figure(figsize=(12, 4))  # 図の設定
+    plt.bar(sorted_prefecture, sorted_shipment, width=0.5)  # 棒グラフを描画
+    plt.xticks(rotation=90)  # X軸のラベルを回転して表示
+    plt.xlim(-0.5, 46.5)  # X軸の範囲を設定
+    plt.tight_layout()  # レイアウトを調整
+    plt.savefig("1_2_6_logistics_bar_sorted.png", dpi=300) # 画像を保存
+    plt.show()  # グラフを表示
 
 
 # データの準備

@@ -1,7 +1,7 @@
-import matplotlib.pyplot as plt  # matplotlib.pyplotをpltとしてインポート
+import matplotlib.pyplot as plt  # matplotlibのpyplotをpltとしてインポート
 import pandas as pd  # pandasをpdとしてインポート
 import seaborn as sns  # seabornをsnsとしてインポート
-import japanize_matplotlib  # matplotlibで日本語を使用するためのライブラリ
+import japanize_matplotlib  # matplotlibで日本語を表示可能にする
 
 # データを辞書形式で提供
 data = {
