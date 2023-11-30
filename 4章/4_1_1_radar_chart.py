@@ -1,8 +1,8 @@
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from math import pi
-import japanize_matplotlib
+import numpy as np  # 数値計算のためのNumPy
+import pandas as pd  # データフレーム操作のためのPandas
+import matplotlib.pyplot as plt  # グラフ描画のためのMatplotlib
+from math import pi  # 円周率πのため
+import japanize_matplotlib  # Matplotlibで日本語を使用可能にする
 
 # データの定義
 # compelling data
@@ -35,39 +35,37 @@ color_list = ["lightblue", "lightcoral"]  # 塗りつぶし色の指定
 
 # サブプロットを作成
 fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(10, 5),
-                       subplot_kw=dict(polar=True))
+                       subplot_kw=dict(polar=True))  # polar=Trueで極座標になる
 
 # 各サブプロットについてループ処理を行う
 for i, categories in enumerate([categories1, categories2]):
 
-    # 各カテゴリを等間隔に配置し、最初のカテゴリを閉じた円形のチャートを作成するために、再度追加します
-    angles = [n / float(len(categories)) * 2 * pi for n in range(len(categories))]
-    angles += angles[:1]
+    # 各カテゴリを等間隔に配置し、最初のカテゴリを閉じた円形のチャートにする
+    angles = [n / float(len(categories)) * 2 *
+              pi for n in range(len(categories))]  # 角度を計算
+    angles += angles[:1]  # 閉じた円形にするために、最初のカテゴリを追加
 
     # 各値の最大値を定義
     max_val = 5
 
-    # レーダーチャートに目盛り線を追加
-    plt.subplot(1, 2, i + 1, polar=True)
-    plt.xticks(angles[:-1], categories, color='grey', size=15)  # フォントサイズを大きく
-    plt.yticks(np.arange(1, max_val), [str(i) for i in range(1, max_val)], color="grey", size=14)  # フォントサイズを大きく
-    plt.ylim(0, max_val)
+    plt.subplot(1, 2, i + 1, polar=True)  # サブプロットを追加
+    plt.xticks(angles[:-1], categories, color='grey', size=15)  # x軸のラベルを追加
+    plt.yticks(np.arange(1, max_val), [str(i) for i in range(
+        1, max_val)], color="grey", size=14)  # y軸の目盛りを追加
+    plt.ylim(0, max_val)  # y軸の範囲を設定
 
-    # 各人物のデータについてループ処理
+    # 各人物のデータについて描画を行なう
     for index, row in data.iterrows():
-        values = row[categories].values.flatten().tolist()
-        values += values[:1]
-        plt.plot(angles, values, linewidth=1, linestyle='solid', label=row['person'])
-        plt.fill(angles, values, color_list[index], alpha=0.2)  # 塗りつぶし色を変更
+        values = row[categories].values.flatten().tolist()  # 値を取得
+        values += values[:1]  # 閉じた円形にするために、最初の値を追加
+        plt.plot(angles, values, linewidth=1,
+                 linestyle='solid', label=row['person'])
+        plt.fill(angles, values, color_list[index], alpha=0.2)
 
 # レイアウトの間隔を広くする
 plt.tight_layout(pad=5)
 
 # 描画
-# plt.savefig('4_1_1_2_radar_chart_compelling.png')
-plt.savefig('4_1_1_2_radar_chart_compelling.svg')
+plt.savefig('4_1_1_2_radar_chart_compelling.png')
 # plt.savefig('4_1_1_1_radar_chart_overwhelming.png')
-# plt.savefig('4_1_1_1_radar_chart_overwhelming.svg')
-
-
-plt.show()
+plt.show()  # 画面に表示
