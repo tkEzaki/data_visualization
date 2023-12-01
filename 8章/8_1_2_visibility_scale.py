@@ -1,5 +1,5 @@
-import matplotlib.pyplot as plt
-import japanize_matplotlib
+import matplotlib.pyplot as plt  # グラフ描画のためのMatplotlib
+import japanize_matplotlib  # 日本語化のためのライブラリ
 
 plt.rcParams["font.size"] = 14
 # データの定義
@@ -16,24 +16,19 @@ patterns = [
 ]
 
 for pattern in patterns:
-    plt.figure(figsize=pattern['figsize'])
+    plt.figure(figsize=pattern['figsize'])  # 図の準備
 
-    plt.plot(x, y1, label='y1', marker='o')
-    plt.plot(x, y2, label='y2', marker='x')
+    plt.plot(x, y1, label='y1', marker='o')  # y1の折れ線グラフを描画
+    plt.plot(x, y2, label='y2', marker='x')  # y2の折れ線グラフを描画
 
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.ylim(pattern['ylim'])
+    plt.xlabel('x')  # x軸ラベル
+    plt.ylabel('y')  # y軸ラベル
+    plt.ylim(pattern['ylim'])  # y軸の範囲を設定
+    plt.legend()  # 凡例を表示
+    plt.tight_layout() # レイアウトの設定
 
-    plt.legend()
-    plt.tight_layout()
-
-    # PNGとSVGで保存
-    plt.savefig(f"8_1_2_{pattern['filename']}.png")
-    plt.savefig(f"8_1_2_{pattern['filename']}.svg")
-
-    # グラフの表示（オプション）
-    # plt.show()
+    plt.savefig(f"8_1_2_{pattern['filename']}.png")  # 図の保存
+    plt.show()  # 図の表示
 
     # グラフをクリア
     plt.clf()

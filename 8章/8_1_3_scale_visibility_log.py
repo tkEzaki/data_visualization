@@ -1,12 +1,13 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import japanize_matplotlib
+import pandas as pd  # データフレーム操作のためのPandas
+import matplotlib.pyplot as plt  # グラフ描画のためのMatplotlib
+import japanize_matplotlib  # Matplotlibで日本語を表示するためのライブラリ
 
 
-plt.rcParams['font.size'] = 16
+plt.rcParams['font.size'] = 16  # プロットのフォントサイズを16に設定
 
 # ファイルを読み込む
-file_path = 'WHO-COVID-19-global-data.csv'  # data downloaded from https://covid19.who.int/data
+# data downloaded from https://covid19.who.int/data
+file_path = 'WHO-COVID-19-global-data.csv'
 
 df = pd.read_csv(file_path)
 
@@ -18,19 +19,22 @@ filtered_df = df[df['Country'].isin(selected_countries)]
 filtered_df['Date_reported'] = pd.to_datetime(filtered_df['Date_reported'])
 
 # 7日の移動平均を計算
-filtered_df['14_day_avg'] = filtered_df.groupby('Country')['New_cases'].transform(lambda x: x.rolling(14).mean())
+filtered_df['14_day_avg'] = filtered_df.groupby(
+    'Country')['New_cases'].transform(lambda x: x.rolling(14).mean())
 
 # 通常の縦軸
 plt.figure(figsize=(10, 5))
 for country in selected_countries:
     country_data = filtered_df[filtered_df['Country'] == country]
-    plt.plot(country_data['Date_reported'], country_data['New_cases'], label=country)
+    plt.plot(country_data['Date_reported'],
+             country_data['New_cases'], label=country)
 
 # plt.ylabel('新規感染者数')
 plt.legend()
 plt.grid(True)
 plt.ticklabel_format(style='plain', axis='y')
-plt.gca().get_yaxis().set_major_formatter(plt.matplotlib.ticker.StrMethodFormatter('{x:,.0f}'))  # 縦軸の目盛にカンマを入れる
+plt.gca().get_yaxis().set_major_formatter(
+    plt.matplotlib.ticker.StrMethodFormatter('{x:,.0f}'))  # 縦軸の目盛にカンマを入れる
 plt.xticks(rotation=30, ha='right')
 plt.ylabel('新規感染者数')
 
@@ -44,13 +48,15 @@ plt.close()
 plt.figure(figsize=(10, 5))
 for country in selected_countries:
     country_data = filtered_df[filtered_df['Country'] == country]
-    plt.plot(country_data['Date_reported'], country_data['New_cases'], label=country)
+    plt.plot(country_data['Date_reported'],
+             country_data['New_cases'], label=country)
 
 # plt.ylabel('新規感染者数 (対数)')
 plt.yscale('log')
 plt.legend()
 plt.grid(True)
-plt.gca().get_yaxis().set_major_formatter(plt.matplotlib.ticker.StrMethodFormatter('{x:,.0f}'))  # 縦軸の目盛にカンマを入れる
+plt.gca().get_yaxis().set_major_formatter(
+    plt.matplotlib.ticker.StrMethodFormatter('{x:,.0f}'))  # 縦軸の目盛にカンマを入れる
 plt.xticks(rotation=30, ha='right')
 plt.ylabel('新規感染者数')
 
