@@ -1,15 +1,14 @@
-from sklearn.neighbors import KernelDensity
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.spatial import Voronoi
-from shapely.geometry import Polygon, Point
+from sklearn.neighbors import KernelDensity  # カーネル密度推定のためのscikit-learn
+import numpy as np  # 数値演算のためのNumPy
+import matplotlib.pyplot as plt  # グラフ描画のためのMatplotlib
+from scipy.spatial import Voronoi  # ボロノイ図のためのSciPy
+from shapely.geometry import Polygon, Point  # 図形描画のためのShapely
+import japanize_matplotlib  # 日本語化のためのライブラリ
 
-import japanize_matplotlib
-
-plt.rcParams['font.size'] = 16
+plt.rcParams['font.size'] = 16  # フォントサイズを設定
 
 # ランダムな点を生成
-np.random.seed(42)
+np.random.seed(42)  # シード値を固定
 points = np.random.rand(20, 2)
 
 # 関心領域から遠く離れた4点を追加
@@ -44,9 +43,9 @@ max_density = np.percentile(densities, 90)
 bandwidths = [0.05, 0.1, 0.2]
 kde_results = []
 
-for bw in bandwidths:
-    kde = KernelDensity(bandwidth=bw, kernel='gaussian')
-    kde.fit(points)
+for bw in bandwidths:  # バンド幅ごとに処理
+    kde = KernelDensity(bandwidth=bw, kernel='gaussian')  # カーネル密度推定のインスタンスを生成
+    kde.fit(points)  # カーネル密度推定の学習
     x, y = np.linspace(0, 1, 100), np.linspace(0, 1, 100)
     xx, yy = np.meshgrid(x, y)
     gridpoints = np.c_[xx.ravel(), yy.ravel()]
@@ -54,10 +53,10 @@ for bw in bandwidths:
     zz = z.reshape(xx.shape)
     kde_results.append(zz)
 
-# 描画
+# 図に描画
 fig, axs = plt.subplots(2, 2, figsize=(10, 10))
 
-# ディスクなしのボロノイ図
+# 左上ディスクなしのボロノイ図
 ax = axs[0, 0]
 norm1 = plt.Normalize(min_density - 20, max_density+10)
 cmap1 = plt.cm.jet
@@ -71,7 +70,6 @@ ax.set_title('ボロノイ図')
 ax.set_xlim([0.0, 1.0])
 ax.set_ylim([0.0, 1.0])
 
-# plt.colorbar(plt.cm.ScalarMappable(norm=norm1, cmap=cmap1), ax=ax, orientation='vertical')
 
 # カーネル密度推定（三種類のバンド幅）
 for i, (bw, zz) in enumerate(zip(bandwidths, kde_results)):
@@ -81,7 +79,5 @@ for i, (bw, zz) in enumerate(zip(bandwidths, kde_results)):
     ax.set_title(f'KDE（バンド幅={bw}）')
 
 plt.tight_layout()
-plt.savefig('7_2_2_KDE.png')
-plt.savefig('7_2_2_KDE.svg')
-
+plt.savefig('7_2_2_KDE.png', dpi=300)
 plt.show()

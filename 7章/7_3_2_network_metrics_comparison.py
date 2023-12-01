@@ -1,11 +1,11 @@
-import matplotlib.pyplot as plt
-import networkx as nx
-import numpy as np
-import japanize_matplotlib
+import matplotlib.pyplot as plt  # グラフ描画のためのMatplotlib
+import networkx as nx  # ネットワーク解析のためのNetworkX
+import numpy as np  # 数値演算のためのNumPy
+import japanize_matplotlib  # Matplotlibで日本語を表示するためのライブラリ
 
-plt.rcParams["font.size"] = 15
+plt.rcParams["font.size"] = 15  # フォントサイズを設定
 
-# ネットワーク生成部分
+# ネットワークを生成
 n = 49
 m = 1
 
@@ -22,19 +22,22 @@ pos_random = nx.kamada_kawai_layout(G_random)
 G_ba = nx.barabasi_albert_graph(n, m, seed=0)
 pos_ba = nx.spring_layout(G_ba)
 
-colors = ['#1f77b4', '#ff7f0e', '#2ca02c']
 
+# ネットワークを描画
+colors = ['#1f77b4', '#ff7f0e', '#2ca02c']
 fig, axs = plt.subplots(1, 3, figsize=(18, 6))
-nx.draw(G_square, pos=pos_square, ax=axs[0], with_labels=False, node_color=colors[0])
-nx.draw(G_random, pos=pos_random, ax=axs[1], with_labels=False, node_color=colors[1])
+nx.draw(G_square, pos=pos_square,
+        ax=axs[0], with_labels=False, node_color=colors[0])
+nx.draw(G_random, pos=pos_random,
+        ax=axs[1], with_labels=False, node_color=colors[1])
 nx.draw(G_ba, pos=pos_ba, ax=axs[2], with_labels=False, node_color=colors[2])
+
 plt.tight_layout()
 plt.savefig('7_3_2_1_example_networks.png', dpi=300)
-plt.savefig('7_3_2_1_example_networks.svg', dpi=300)
-
 plt.show()
 
 
+# ネットワークの指標を計算
 def compute_network_metrics(G):
     metrics = {}
     metrics['平均次数'] = np.mean([d for n, d in G.degree()])
@@ -44,13 +47,14 @@ def compute_network_metrics(G):
     return metrics
 
 
+# それぞれのネットワークの指標を計算
 metrics_square = compute_network_metrics(G_square)
 metrics_random = compute_network_metrics(G_random)
 metrics_ba = compute_network_metrics(G_ba)
 
+# 描画のためにまとめる
 labels = list(metrics_square.keys())
 network_names = ['格子', 'ランダム', 'BA']
-
 square_vals = [metrics_square[label] for label in labels]
 random_vals = [metrics_random[label] for label in labels]
 ba_vals = [metrics_ba[label] for label in labels]
@@ -58,9 +62,7 @@ ba_vals = [metrics_ba[label] for label in labels]
 x = np.arange(len(labels))
 width = 0.3
 
-
-# 指標ごとにサブプロット
-fig, axs = plt.subplots(1, len(labels), figsize=(10, 5))
+# 数値を描画する関数
 
 
 def add_values(ax, values, colors):
@@ -80,6 +82,8 @@ def add_values(ax, values, colors):
             ax.bar(i, 0, color=color)  # nanでも色を付ける
 
 
+# 指標ごとにプロットする
+fig, axs = plt.subplots(1, len(labels), figsize=(10, 5))
 for i, label in enumerate(labels):
     ax = axs[i]
     values = [metrics_square[label], metrics_random[label], metrics_ba[label]]
@@ -88,8 +92,6 @@ for i, label in enumerate(labels):
     ax.set_title(label, fontsize=15)
     add_values(ax, values, colors)
 
-plt.tight_layout()
-plt.savefig('7_3_2_2_network_metrics_comparison.png', dpi=300)
-plt.savefig('7_3_2_2_network_metrics_comparison.svg', dpi=300)
-
-plt.show()
+plt.tight_layout()  # レイアウトの設定
+plt.savefig('7_3_2_2_network_metrics_comparison.png', dpi=300)  # 図の保存
+plt.show()  # 図の表示

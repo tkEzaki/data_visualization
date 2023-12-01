@@ -1,6 +1,6 @@
-import networkx as nx
-import matplotlib.pyplot as plt
-import numpy as np
+import networkx as nx  # ネットワーク解析のためのNetworkX
+import matplotlib.pyplot as plt  # グラフ描画のためのMatplotlib
+import numpy as np  # 数値演算のためのNumPy
 
 
 # 適当なネットワークを生成
@@ -26,22 +26,15 @@ fig, axs = plt.subplots(2, 2, figsize=(12, 12))
 
 # Betweenness Centrality
 nx.draw(G, pos, ax=axs[0, 0], node_color=list(betweenness_centrality.values()), cmap=plt.cm.jet, with_labels=False)
-# axs[0, 0].set_title("Betweenness Centrality")
 
 # Closeness Centrality
 nx.draw(G, pos, ax=axs[0, 1], node_color=list(closeness_centrality.values()), cmap=plt.cm.jet, with_labels=False)
-# axs[0, 1].set_title("Closeness Centrality")
 
 # Eigen Centrality
 nx.draw(G, pos, ax=axs[1, 0], node_color=list(eigen_centrality.values()), cmap=plt.cm.jet, with_labels=False)
-# axs[1, 0].set_title("Eigen Centrality")
 
 # Page Rank
 nx.draw(G, pos, ax=axs[1, 1], node_color=list(page_rank.values()), cmap=plt.cm.jet, with_labels=False)
-# axs[1, 1].set_title("Page Rank")
 
-# plt.tight_layout()
-plt.savefig("7_3_1_network_centrality_measures.png", dpi=300)
-plt.savefig("7_3_1_network_centrality_measures.svg", dpi=300)
-
-plt.show()
+plt.savefig("7_3_1_network_centrality_measures.png", dpi=300)  # 図を保存
+plt.show()  # 図の表示
