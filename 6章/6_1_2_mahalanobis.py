@@ -10,7 +10,7 @@ print(matplotlib.__version__)
 plt.rcParams['font.size'] = 15  # フォントサイズを設定
 
 # CSVファイルを読み込む
-df = pd.read_csv('baseball_players_dummy.csv')
+df = pd.read_csv('data\\baseball_players_dummy.csv')
 # 再配布を避けるためGitHub上にはダミーデータを入れてありますが、元のデータは下記からDLできます。
 # https://www.kaggle.com/datasets/ayessa/predict-baseball-players-position
 # http://wiki.stat.ucla.edu/socr/index.php/SOCR_Data_MLB_HeightsWeights
