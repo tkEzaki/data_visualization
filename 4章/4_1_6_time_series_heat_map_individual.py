@@ -9,7 +9,7 @@ import japanize_matplotlib  # Matplotlibで日本語を使用可能にする
 plt.rcParams['font.size'] = 14  # プロットのフォントサイズを14に設定
 
 # CSVデータを読み込む
-df = pd.read_csv("behavior_data.csv")
+df = pd.read_csv("data\\behavior_data.csv")
 
 # Time列を秒から時間に変換
 df['Time'] = df['Time'].div(3600)
