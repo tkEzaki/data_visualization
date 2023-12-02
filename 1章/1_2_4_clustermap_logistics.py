@@ -101,7 +101,7 @@ pref_pos_dict = dict(zip(prefectures_name, zip(prefectures_x, prefectures_y)))
 
 def plot_cluster_map():
     # CSVファイルからデータを読み込む
-    data_df = pd.read_csv("matrix.csv", index_col=0)
+    data_df = pd.read_csv("data\\matrix.csv", index_col=0)
 
     # 都道府県名を英日対応辞書(prefecture_dictionary)を使用して日本語に変換
     data_df.index = [prefecture_dictionary[pref] for pref in data_df.index]

@@ -118,7 +118,7 @@ def draw_arc(G, pos, node1, node2, radius):
 
 def plot_network():
 
-    data_df = pd.read_csv("matrix.csv", index_col=0)
+    data_df = pd.read_csv("data\\matrix.csv", index_col=0)
 
     # 空の無向グラフを作成
     G = nx.DiGraph()
