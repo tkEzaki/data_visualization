@@ -6,7 +6,7 @@ plt.rcParams['font.size'] = 14  # フォントサイズを14に設定
 
 
 # pandasで読み込む
-df = pd.read_csv("gdp_data.csv", thousands=',')  # 千の位のカンマを除去して数値として読み込む
+df = pd.read_csv("data\\gdp_data.csv", thousands=',')  # 千の位のカンマを除去して数値として読み込む
 print(df.head())  # 先頭5行を表示
 
 # 年ごとのGDPデータとセクターごとのデータ

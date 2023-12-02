@@ -7,7 +7,7 @@ import japanize_matplotlib  # Matplotlibで日本語を使用可能にする
 plt.rcParams["font.size"] = 14  # プロットのフォントサイズを14に設定
 
 # データセットの読み込み
-df = pd.read_csv('bubble_chart_data.csv')  # データセットを読み込む
+df = pd.read_csv('data\\bubble_chart_data.csv')  # データセットを読み込む
 region_df = pd.read_csv('bubble_chart_region_data.csv')  # 地域データを読み込む
 
 # GDP, Life expectancy, Populationのデータを取得
@@ -19,7 +19,6 @@ population_df = df[df['Series Name'] == 'Population, total']  # Population
 # データの前処理
 gdp_df = gdp_df[gdp_df['2021 [YR2021]'] != '..']
 gdp_df['2021 [YR2021]'] = gdp_df['2021 [YR2021]'].astype(float)
-
 life_exp_df = life_exp_df[life_exp_df['2021 [YR2021]'] != '..']
 life_exp_df['2021 [YR2021]'] = life_exp_df['2021 [YR2021]'].astype(float)
 
