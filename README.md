@@ -8,11 +8,22 @@
 
 # FAQ
 ## コードが動かない（初学者向け）
+### Pythonプログラミングは始めてなのだが何から始めたらよいか
+お使いの環境ごとにPythonをインストールする方法については[Python Japanの環境構築ガイド](https://www.python.jp/install/install.html)をご参照いただいたり、Youtube上にも優れた動画がいくつも上がっているのでこれらを参考にやってみることをおすすめします。
+
+- [【Pythonプログラミング入門】Windows PCにPythonをインストールして動かす！〜VTuberと学習するプログラミング〜](https://www.youtube.com/watch?v=XhbRqItkIYI&list=PLiaZfx-34L5oK_8hLi_jbmFfZgZoGCqnr&index=3)
+- [【Pythonプログラミング入門】MacにPythonをインストールして動かす！〜VTuberと学習するプログラミング〜](https://www.youtube.com/watch?v=Gu0K4ammlHg&list=PLiaZfx-34L5oK_8hLi_jbmFfZgZoGCqnr&index=5)
+
+
+
 ### moduleがないと言われる
-必要なライブラリがインストールされていない場合、手動で追加インストールする必要があります。インストール方法は環境によって若干異なりますので、下記のリンクを参考にしてみて下さい。
+必要なパッケージがインストールされていない場合、手動で追加インストールする必要があります。必要なパッケージはrequirements.txtにまとめてありますので、これを用いて一括でインストールすると便利です。いくつかわかりやすい解説動画へのリンクを張っておきます。
+- [【Pythonプログラミング入門】モジュール・パッケージを解説！〜VTuberと学習〜 初心者でも必ずわかる!!](https://youtu.be/aXnB3Cm__-o?si=cJFXpkPWGp-YLiGP)
+- [【Pythonプログラミング入門】ライブラリ一括インストール！ requirements.txt 〜VTuberと学習〜 【初心者向け】](https://youtu.be/iiFs3u6VkFE?si=QEf3D9a7MGx6lBR-)
+
 
 ### importはできているのに関数が動かない
-インストールされているパッケージのバージョンが異なっている可能性が高いです。バージョンを合わせるか、適宜お使いのバージョンに合わせた記述に変更してください。（そのような際にはChatGPTなどが便利です。）バージョン情報についてはrequirements.txtに示します。
+インストールされているパッケージのバージョンが異なっている可能性が高いです。バージョンを合わせるか、適宜お使いのバージョンに合わせた記述に変更してください。（そのような際にはChatGPTなどが便利です。）バージョン情報についてはrequirements.txtに示してあります。
 
 ### データの読み込みができない
 本サンプルコードはそれぞれの章のフォルダで独立しています。開発環境で開いているディレクトリがPythonファイルと同じかどうか確認してください。
