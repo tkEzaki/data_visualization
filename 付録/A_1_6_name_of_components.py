@@ -39,11 +39,4 @@ ax.legend()
 
 # 図の表示
 plt.savefig('9_1_6_name_of_components.png', bbox_inches='tight', dpi=300)
-plt.savefig('9_1_6_name_of_components.svg', bbox_inches='tight')
-
 plt.show()
-
-# ax.plot(x, y1, label='Signal 1', color='blue')
-# ax.bar(x, y2, label="Signal 2", color='red')
-# ax.scatter(scatter_x, scatter_y1, color='blue')
-# ax.viori

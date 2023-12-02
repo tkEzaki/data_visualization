@@ -44,6 +44,4 @@ print(ax4.axis)
 # 図を表示
 plt.tight_layout()
 plt.savefig("9_1_3_2_show_fig_ax_sample.png", dpi=300)
-plt.savefig("9_1_3_2_show_fig_ax_sample.svg", dpi=300)
-
 plt.show()

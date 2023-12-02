@@ -20,6 +20,4 @@ ax.set_ylabel("y")
 
 # グラフ表示
 plt.savefig("9_1_3_1_show_fig_ax_sample.png", dpi=300)
-plt.savefig("9_1_3_1_show_fig_ax_sample.svg", dpi=300)
-
 plt.show()
