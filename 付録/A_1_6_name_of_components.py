@@ -38,5 +38,5 @@ ax.set_xticks([0, 1, 2, 3, 4])
 ax.legend()
 
 # 図の表示
-plt.savefig('9_1_6_name_of_components.png', bbox_inches='tight', dpi=300)
+plt.savefig('A_1_6_name_of_components.png', bbox_inches='tight', dpi=300)
 plt.show()
