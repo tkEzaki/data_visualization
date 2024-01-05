@@ -123,9 +123,13 @@ def plot_cluster_map():
     g.ax_heatmap.set_xticks(np.arange(len(data_df.columns)) + 0.5)
     g.ax_heatmap.set_yticks(np.arange(len(data_df.index)) + 0.5)
 
-    # X軸とY軸の目盛りに都道府県名を設定
-    g.ax_heatmap.set_xticklabels(data_df.columns)
-    g.ax_heatmap.set_yticklabels(data_df.index)
+    # 並び替えられた後のインデックスとカラムを取得
+    reordered_rows = g.dendrogram_row.reordered_ind
+    reordered_cols = g.dendrogram_col.reordered_ind
+
+    # X軸とY軸の目盛りに並び替えられた後の都道府県名を設定
+    g.ax_heatmap.set_xticklabels(data_df.columns[reordered_cols], rotation=90)
+    g.ax_heatmap.set_yticklabels(data_df.index[reordered_rows], rotation=0)
 
     plt.savefig("1_2_4_clustermap_logistics.png", dpi=300)  # 画像を保存
     plt.show()  # 画像を表示
