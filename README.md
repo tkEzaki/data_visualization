@@ -14,6 +14,17 @@
 - 本サンプルコードは予告なく内容を変更する（主に修正や改善を実施予定です）場合がありますのでご了承下さい。
 - 本サンプルコードに関しての質問や改善のアイディアについては随時ご連絡ください（ただし必ずしも対応をお約束するものではございません）。
 
+
+## 他言語による実装
+
+非常にありがたいことに、本プログラムのMATLABやRによる実装例を公開して下さっている方がいらっしゃいますのでリンクを張らせていただきます。普段これらの言語を使われる方は是非参考にしてみて下さい。
+
+### MATLABによる実装
+- Michio Inoue様 https://github.com/minoue-xx/MATLAB-example-for-An-Introduction-to-Data-Visualization
+
+### Rによる実装
+- Osamu Morimoto様 https://morimotoosamu.github.io/data_visualization/
+
 ## FAQ
 ### コードが動かない（初学者向け）
 #### Pythonプログラミングは始めてなのだが何から始めたらよいか
@@ -57,3 +68,5 @@
 # 修正履歴
 - 2024/1/5 図1.2.4のクラスターマップのx軸ラベル、y軸ラベルがクラスタリング前のものになっていた点を修正
 https://github.com/tkEzaki/data_visualization/pull/1/commits/38ac7c4ef9e5e34449149da8044b10cd9fe67012
+
+- 2024/1/15 他言語での実装例へのリンクの追加
